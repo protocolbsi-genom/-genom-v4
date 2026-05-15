@@ -1,5 +1,4 @@
 import { CHAPTERS, SINGLE_TAG_GROUPS, CHAPTER_KEYS } from '../data/chapters.js';
-const MAIN_CHAPTERS = 24; // chapters 0-23 are main, 24 is preview tab
 import { DEFAULTS, DEFAULT_TAGS } from '../data/defaults.js';
 import { collectData, updateIntegrity, buildAndShow, pb, updateOrient, getGenome, generatePromptText } from './genome.js';
 import { initPreviewChat } from './chat.js';
@@ -70,7 +69,7 @@ export function goTo(idx) {
   const tabs = document.querySelectorAll('.ch-tab');
   chs[cur].classList.remove('active');
   tabs[cur].classList.remove('active');
-  cur = Math.max(0, Math.min(idx, MAIN_CHAPTERS - 1));
+  cur = Math.max(0, Math.min(idx, CHAPTERS.length - 1));
   chs[cur].classList.add('active');
   tabs[cur].classList.add('active');
   tabs[cur].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
@@ -83,7 +82,7 @@ export function goTo(idx) {
 export function navSection(dir) { goTo(cur + dir); }
 
 function updateNav() {
-  const total = MAIN_CHAPTERS;
+  const total = CHAPTERS.length;
   document.getElementById('nav-pct').textContent = `${cur + 1} / ${total}`;
   document.getElementById('nav-fill').style.width = ((cur + 1) / total * 100) + '%';
   document.getElementById('btn-prev').style.opacity = cur === 0 ? '0.3' : '1';
