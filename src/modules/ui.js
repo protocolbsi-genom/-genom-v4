@@ -158,6 +158,39 @@ export function fillChapterExample(id) {
   updateIntegrity();
 }
 
+export function updateGenomeStats() {
+  const fields = document.querySelectorAll('[data-k]');
+  const filled = [...fields].filter(el => el.value?.trim()).length;
+  const tags = document.querySelectorAll('.tag.on');
+  const totalTags = document.querySelectorAll('.tag[data-g]').length;
+
+  const fieldPct = fields.length ? Math.round(filled / fields.length * 100) : 0;
+  const tagPct = totalTags ? Math.round(tags.length / totalTags * 100) : 0;
+  const overall = Math.round((fieldPct * 0.6 + tagPct * 0.4));
+
+  document.getElementById('gs-fields').textContent = `${filled} / ${fields.length}`;
+  document.getElementById('gs-tags').textContent = `${tags.length} / ${totalTags}`;
+  document.getElementById('gs-pct').textContent = overall + '%';
+
+  const bar = document.getElementById('gs-bar');
+  bar.style.width = overall + '%';
+  bar.className = 'genome-stat-fill' + (overall < 25 ? ' pink' : overall < 50 ? '' : overall < 75 ? ' blue' : ' green');
+
+  const preview = document.getElementById('prompt-preview');
+  if (preview) {
+    const words = preview.value.split(/\s+/).filter(Boolean).length;
+    document.getElementById('gs-words').textContent = words.toLocaleString('ru-RU');
+  }
+
+  let score = '—';
+  if (overall > 80) score = '9/10';
+  else if (overall > 60) score = '7/10';
+  else if (overall > 40) score = '5/10';
+  else if (overall > 20) score = '3/10';
+  else if (overall > 0) score = '1/10';
+  document.getElementById('gs-score').textContent = score;
+}
+
 export function updatePreviewTab() {
   const g = getGenome();
   const title = document.getElementById('ch25-title');
@@ -178,6 +211,7 @@ export function updatePreviewTab() {
     const text = generatePromptText(g);
     preview.value = text;
   }
+  updateGenomeStats();
   initPreviewChat();
 }
 
