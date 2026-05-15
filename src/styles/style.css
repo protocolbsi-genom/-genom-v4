@@ -273,6 +273,13 @@ input[type=range].blue::-webkit-slider-thumb{background:var(--acc3);box-shadow:0
   padding:16px;align-items:flex-end;
 }
 .modal.open{display:flex;flex-direction:column;justify-content:flex-end}
+#persona-modal.open {
+  justify-content: center;
+  align-items: center;
+}
+#persona-modal .modal-box {
+  max-height: 80vh;
+}
 .modal-box{
   background:var(--s1);border:1px solid var(--br);
   border-radius:16px 16px 12px 12px;
