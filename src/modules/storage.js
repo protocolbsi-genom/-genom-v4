@@ -21,12 +21,7 @@ function escapeHtml(s) {
 }
 
 function goToGenome() {
-  document.getElementById('page-genome').style.display = 'block';
-  document.querySelectorAll('.surface-page').forEach(p => {
-    if (p.id !== 'page-genome') p.style.display = 'none';
-  });
-  document.getElementById('btn-cabinet').style.display = 'flex';
-  document.getElementById('integrity-pill').style.display = 'flex';
+  window.goToGenome();
 }
 
 export async function saveCurrentPersona() {

@@ -492,6 +492,7 @@ input[type=range].blue::-webkit-slider-thumb{background:var(--acc3);box-shadow:0
 /* ── LANDING PAGE ── */
 #page-landing {
   overflow-x: hidden;
+  padding: 0 !important;
 }
 .landing-hero {
   min-height: 100vh;

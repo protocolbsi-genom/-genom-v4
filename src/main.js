@@ -24,7 +24,13 @@ let authMode = 'login';
 function showPage(id) {
   document.querySelectorAll('.surface-page').forEach(p => p.style.display = 'none');
   const page = document.getElementById(id);
-  if (page) page.style.display = 'block';
+  if (page) { page.style.display = 'block'; }
+  document.getElementById('btn-cabinet').style.display = 'none';
+  document.getElementById('integrity-pill').style.display = 'none';
+  if (id === 'page-genome') {
+    document.getElementById('btn-cabinet').style.display = 'flex';
+    document.getElementById('integrity-pill').style.display = 'flex';
+  }
 }
 
 window.showLanding = () => showPage('page-landing');
