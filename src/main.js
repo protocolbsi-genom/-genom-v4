@@ -3,7 +3,7 @@ import { initUI, goTo, navSection, closeModal, copyGenome, setTagGroup,
 import { buildAndShow, pb, updateOrient } from './modules/genome.js';
 import { saveCurrentPersona, loadPersona, deletePersona, renderPersonaLibrary } from './modules/storage.js';
 import { analyzeText } from './modules/analysis.js';
-import { copyPromptPreview, sendChatMessage } from './modules/chat.js';
+import { copyPromptPreview, sendChatMessage, initPreviewChat } from './modules/chat.js';
 import { login, register, logout, isLoggedIn, getUser } from './modules/api.js';
 
 window.goTo = goTo;

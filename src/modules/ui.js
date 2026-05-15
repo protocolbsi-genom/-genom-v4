@@ -1,6 +1,7 @@
 import { CHAPTERS, SINGLE_TAG_GROUPS, CHAPTER_KEYS } from '../data/chapters.js';
 import { DEFAULTS, DEFAULT_TAGS } from '../data/defaults.js';
 import { collectData, updateIntegrity, buildAndShow, pb, updateOrient, getGenome, generatePromptText } from './genome.js';
+import { initPreviewChat } from './chat.js';
 
 
 let cur = 0;
@@ -166,7 +167,6 @@ export function updatePreviewTab() {
   if (title) {
     const name = g.name || g.nickname || 'Превью';
     title.textContent = name;
-    // also update the tab label
     const tab = document.querySelector('.ch-tab[data-id="24"]');
     if (tab) tab.innerHTML = `<div class="ch-dot"></div>↑ ${name}`;
   }
@@ -178,6 +178,7 @@ export function updatePreviewTab() {
     const text = generatePromptText(g);
     preview.value = text;
   }
+  initPreviewChat();
 }
 
 export function fillAllFromAnna() {
