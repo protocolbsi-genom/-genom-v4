@@ -60,7 +60,7 @@ export async function sendChatMessage() {
   const genome = getGenome();
 
   try {
-    const res = await fetch('/api/chat', {
+    const res = await fetch('/api/chat/preview', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
       body: JSON.stringify({ genome, message: text }),
