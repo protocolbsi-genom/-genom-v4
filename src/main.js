@@ -121,6 +121,46 @@ window.handleLogout = () => {
   showPage('page-landing');
 };
 
+window.showSettings = () => {
+  const u = getUser();
+  document.getElementById('settings-nickname').value = u?.name || u?.email?.split('@')[0] || '';
+  document.getElementById('settings-password').value = '';
+  document.getElementById('settings-password-confirm').value = '';
+  document.getElementById('settings-modal').classList.add('open');
+};
+window.closeSettings = () => {
+  document.getElementById('settings-modal').classList.remove('open');
+};
+window.saveSettings = async () => {
+  const nick = document.getElementById('settings-nickname').value.trim();
+  const pass = document.getElementById('settings-password').value;
+  const pass2 = document.getElementById('settings-password-confirm').value;
+  if (pass && pass !== pass2) { alert('Пароли не совпадают'); return; }
+  if (pass && pass.length < 6) { alert('Пароль минимум 6 символов'); return; }
+  const body = {};
+  if (nick) body.name = nick;
+  if (pass) body.password = pass;
+  const token = localStorage.getItem('genom_v4_token');
+  try {
+    const res = await fetch('/api/me', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      body: JSON.stringify(body),
+    });
+    const data = await res.json();
+    if (data.user) {
+      localStorage.setItem('genom_v4_user', JSON.stringify(data.user));
+      document.getElementById('sidebar-user').textContent = data.user.email;
+    }
+    closeSettings();
+  } catch (e) {
+    alert('Ошибка: ' + e.message);
+  }
+};
+document.getElementById('settings-modal')?.addEventListener('click', function(e) {
+  if (e.target === this) closeSettings();
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   initUI();
   showPage('page-landing');

@@ -97,6 +97,9 @@
         <button class="mini-btn pink" onclick="handleLogout()">ВЫЙТИ</button>
       </div>
     </div>
+    <div class="sidebar-section" style="padding-bottom:0">
+      <button class="mini-btn" onclick="showSettings()" style="width:100%;margin-bottom:8px">⚙ НАСТРОЙКИ</button>
+    </div>
     <div class="sidebar-section">
       <div class="sidebar-title">Мои личности</div>
       <div class="persona-list" id="sidebar-persona-list"></div>
@@ -1465,6 +1468,26 @@
     <div class="modal-footer">
       <button class="modal-copy" onclick="downloadPersonaText()">СКАЧАТЬ .TXT</button>
       <button class="modal-copy secondary" onclick="closePersonaDetail()">ЗАКРЫТЬ</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="settings-modal">
+  <div class="modal-box" style="max-width:420px;margin:auto">
+    <div class="modal-header">
+      <div class="modal-title">⚙ НАСТРОЙКИ</div>
+      <div class="modal-close" onclick="closeSettings()">✕</div>
+    </div>
+    <div class="modal-body">
+      <div class="sub-label">Никнейм</div>
+      <input type="text" id="settings-nickname" placeholder="Ваш никнейм">
+      <div class="sub-label">Новый пароль</div>
+      <input type="password" id="settings-password" placeholder="от 6 символов">
+      <div class="sub-label">Повторите пароль</div>
+      <input type="password" id="settings-password-confirm" placeholder="повторите пароль">
+    </div>
+    <div class="modal-footer">
+      <button class="modal-copy" onclick="saveSettings()">СОХРАНИТЬ</button>
     </div>
   </div>
 </div>
