@@ -1,4 +1,4 @@
-name = "genom-v4-api"
+name = "genom-v4"name = "genom-v4-api"
 main = "functions/_worker.js"
 compatibility_date = "2025-04-01"
 
