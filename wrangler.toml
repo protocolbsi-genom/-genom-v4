@@ -1,4 +1,4 @@
-name = "genom-v4-api"
+name = "genom-v4"
 main = "functions/_worker.js"
 compatibility_date = "2025-04-01"
 
@@ -7,7 +7,7 @@ pages_build_output_dir = "dist"
 [[d1_databases]]
 binding = "DB"
 database_name = "genom-v4-db"
-database_id = ""
+database_id = "38bf06d9-a35f-4f6b-aed9-1f68ef7d7f09"
 
 [[env.staging]]
 [[env.staging.d1_databases]]
