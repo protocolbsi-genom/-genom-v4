@@ -50,7 +50,7 @@ window.showLandingAuth = () => showPage('page-auth');
 window.showDashboard = async () => {
   if (!isLoggedIn()) { showPage('page-landing'); return; }
   const u = getUser();
-  document.getElementById('sidebar-user').textContent = u.email;
+  document.getElementById('sidebar-user').textContent = u.name || u.email;
 
   const dbEl = document.getElementById('sidebar-db-status');
   dbEl.innerHTML = '<span class="status-dot" style="background:var(--tx3)"></span> База данных: проверка...';
@@ -150,7 +150,7 @@ window.saveSettings = async () => {
     const data = await res.json();
     if (data.user) {
       localStorage.setItem('genom_v4_user', JSON.stringify(data.user));
-      document.getElementById('sidebar-user').textContent = data.user.email;
+      document.getElementById('sidebar-user').textContent = data.user.name || data.user.email;
     }
     closeSettings();
   } catch (e) {
