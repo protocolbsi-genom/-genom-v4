@@ -55,6 +55,19 @@ window.showDashboard = async () => {
   if (!isLoggedIn()) { showPage('page-landing'); return; }
   const u = getUser();
   document.getElementById('dash-email').textContent = u.email;
+  document.getElementById('db-status').innerHTML = '<span class="status-dot" style="background:var(--tx3)"></span> База данных: проверка...';
+
+  try {
+    const me = await fetch('/api/me', { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('genom_v4_token') } }).then(r => r.json());
+    if (me.user) {
+      document.getElementById('db-status').innerHTML = '<span class="status-dot" style="background:var(--acc)"></span> База данных: подключена';
+    } else {
+      document.getElementById('db-status').innerHTML = '<span class="status-dot" style="background:var(--acc2)"></span> База данных: ошибка';
+    }
+  } catch {
+    document.getElementById('db-status').innerHTML = '<span class="status-dot" style="background:var(--acc2)"></span> База данных: недоступна';
+  }
+
   await renderPersonaLibrary();
   const listHtml = document.getElementById('persona-list')?.innerHTML;
   if (listHtml) document.getElementById('dash-persona-list').innerHTML = listHtml;
