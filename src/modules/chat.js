@@ -1,4 +1,5 @@
 // Chat module for preview tab 25
+import { collectData, getGenome } from './genome.js';
 
 let chatHistory = [];
 let chatInitialized = false;
@@ -55,10 +56,11 @@ export async function sendChatMessage() {
   input.disabled = true;
 
   // Collect genome data from the form
-  const genome = collectGenomeData();
+  collectData();
+  const genome = getGenome();
 
   try {
-    const res = await fetch('/api/chat/preview', {
+    const res = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
       body: JSON.stringify({ genome, message: text }),
@@ -70,26 +72,6 @@ export async function sendChatMessage() {
   }
   input.disabled = false;
   input.focus();
-}
-
-function collectGenomeData() {
-  const g = {};
-  document.querySelectorAll('[data-k]').forEach(el => {
-    const k = el.dataset.k;
-    const v = el.value?.trim();
-    if (v) g[k] = v;
-  });
-  document.querySelectorAll('.tag.on[data-g]').forEach(t => {
-    const grp = t.dataset.g;
-    if (!g['tag_' + grp]) g['tag_' + grp] = [];
-    g['tag_' + grp] = (Array.isArray(g['tag_' + grp]) ? g['tag_' + grp] : []).concat(t.textContent.trim());
-  });
-  Object.keys(g).filter(k => k.startsWith('tag_') && Array.isArray(g[k])).forEach(k => {
-    g[k] = g[k].join(', ');
-  });
-  g.orientation_val = document.getElementById('orientation')?.value || 0;
-  g.orientation_label = document.getElementById('orient-val')?.textContent || '';
-  return g;
 }
 
 function addMessage(text, type) {

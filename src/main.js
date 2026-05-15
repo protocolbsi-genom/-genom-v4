@@ -80,25 +80,28 @@ window.toggleAuthMode = () => {
 };
 
 window.handleAuth = async () => {
-  let email = document.getElementById('auth-email').value.trim();
-  let password = document.getElementById('auth-pass').value;
+  const email = document.getElementById('auth-email').value.trim();
+  const password = document.getElementById('auth-pass').value;
   const errEl = document.getElementById('auth-error');
   errEl.style.display = 'none';
 
   if (!email || !password) {
-    email = 'user@genom.app';
-    password = 'genom123';
+    errEl.textContent = 'Заполните email и пароль';
+    errEl.style.display = 'block';
+    return;
+  }
+
+  if (password.length < 6) {
+    errEl.textContent = 'Пароль должен быть от 6 символов';
+    errEl.style.display = 'block';
+    return;
   }
 
   try {
     if (authMode === 'login') {
-      await login(email, password).catch(async () => {
-        await register(email, password, email.split('@')[0]);
-      });
+      await login(email, password);
     } else {
-      await register(email, password, email.split('@')[0]).catch(async () => {
-        await login(email, password);
-      });
+      await register(email, password, email.split('@')[0]);
     }
     showDashboard();
   } catch (e) {
@@ -114,6 +117,7 @@ window.handleLogout = () => {
   authMode = 'login';
   document.querySelector('.auth-title').textContent = 'Вход';
   document.getElementById('auth-btn').textContent = 'ВОЙТИ';
+  document.getElementById('app-container').style.display = 'none';
   showPage('page-landing');
 };
 

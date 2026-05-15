@@ -177,12 +177,19 @@ export default {
       if (path === '/api/chat' && method === 'POST') {
         const user = await getUser(request, env);
         if (!user) return json({ error: 'Unauthorized' }, 401);
-        const { personaId, message } = await request.json();
-        if (!personaId || !message) return json({ error: 'Persona ID and message required' }, 400);
-        const p = await env.DB.prepare('SELECT data FROM personas WHERE id=? AND user_id=?')
-          .bind(personaId, user.id).first();
-        if (!p) return json({ error: 'Persona not found' }, 404);
-        const g = JSON.parse(p.data);
+        const { personaId, genome, message } = await request.json();
+        if (!message) return json({ error: 'Message required' }, 400);
+        let g;
+        if (personaId) {
+          const p = await env.DB.prepare('SELECT data FROM personas WHERE id=? AND user_id=?')
+            .bind(personaId, user.id).first();
+          if (!p) return json({ error: 'Persona not found' }, 404);
+          g = JSON.parse(p.data);
+        } else if (genome) {
+          g = genome;
+        } else {
+          return json({ error: 'Persona ID or genome data required' }, 400);
+        }
         const key = env.OPENROUTER_API_KEY;
         if (!key) return json({ error: 'AI not configured' }, 503);
 
