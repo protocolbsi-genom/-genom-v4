@@ -104,7 +104,6 @@ body{
   flex: 1;
   overflow-y: auto;
   padding: 16px;
-  order: 3;
 }
 
 /* ── CHAPTER SECTIONS ── */
@@ -756,11 +755,6 @@ input[type=range].blue::-webkit-slider-thumb{background:var(--acc3);box-shadow:0
 .ch-tab.ch25-inline .ch-dot { background: var(--acc4); }
 
 /* ── CHAPTERS TABS (below stats) ── */
-#main-content .chapters {
-  position: static;
-  border-bottom: 1px solid var(--br);
-  flex-shrink: 0;
-}
 #main-content .chapters .ch-tab[data-id="24"] {
   display: none;
 }
@@ -885,21 +879,11 @@ input[type=range].blue::-webkit-slider-thumb{background:var(--acc3);box-shadow:0
   position: relative;
 }
 
-#main-content { display: flex; flex-direction: column; }
-.genome-stats { order: 1; }
 #main-content .chapters {
   position: static;
   border-bottom: 1px solid var(--br);
   flex-shrink: 0;
-  order: 2;
 }
-
-#main-content .bottom-nav { order: 4; }
-  flex: 1;
-  overflow-y: auto;
-  padding: 0 0 80px;
-}
-
 #main-content .bottom-nav {
   position: static;
   border-top: 1px solid var(--br);
