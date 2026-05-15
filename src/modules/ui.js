@@ -93,6 +93,7 @@ export function showPreview() {
   cur = 24;
   document.querySelector('.main-scroll')?.scrollTo(0, 0);
   window.scrollTo(0, 0);
+  updatePreviewTab();
 }
 
 function updateNav() {
