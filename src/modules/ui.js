@@ -193,5 +193,6 @@ export function fillAllFromAnna() {
   collectData();
   updateIntegrity();
   updatePreviewTab();
+  if (window.resetChat) window.resetChat();
   window.goToGenome();
 }

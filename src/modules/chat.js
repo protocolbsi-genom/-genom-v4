@@ -1,6 +1,7 @@
 // Chat module for preview tab 25
 
 let chatHistory = [];
+let chatInitialized = false;
 
 export function copyPromptPreview() {
   const el = document.getElementById('prompt-preview');
@@ -11,11 +12,13 @@ export function copyPromptPreview() {
   });
 }
 
-export function initPreviewChat() {
+export function initPreviewChat(force = false) {
+  if (chatInitialized && !force) return;
+  chatInitialized = true;
   chatHistory = [];
   const container = document.getElementById('chat-messages');
   if (!container) return;
-  container.innerHTML = '';
+  if (force || !container.children.length) container.innerHTML = '';
 
   const token = localStorage.getItem('genom_v4_token');
   if (!token) {
@@ -23,7 +26,14 @@ export function initPreviewChat() {
     return;
   }
 
-  addMessage('Привет! Я твой AI-помощник. Задай любой вопрос о личности или попроси меня представиться от её лица.', 'system');
+  if (force || !container.children.length) {
+    addMessage('Привет! Я твой AI-помощник. Задай любой вопрос о личности или попроси меня представиться от её лица.', 'system');
+  }
+}
+
+export function resetChat() {
+  chatInitialized = false;
+  initPreviewChat(true);
 }
 
 export async function sendChatMessage() {
