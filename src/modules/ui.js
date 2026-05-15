@@ -1,6 +1,6 @@
 import { CHAPTERS, SINGLE_TAG_GROUPS, CHAPTER_KEYS } from '../data/chapters.js';
 import { DEFAULTS, DEFAULT_TAGS } from '../data/defaults.js';
-import { collectData, updateIntegrity, buildAndShow, pb, updateOrient } from './genome.js';
+import { collectData, updateIntegrity, buildAndShow, pb, updateOrient, getGenome, generatePromptText } from './genome.js';
 
 
 let cur = 0;
@@ -46,6 +46,7 @@ function setupInputListeners() {
     if (e.target.dataset.k !== undefined || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT') {
       collectData();
       updateIntegrity();
+      updatePreviewTab();
     }
   });
 }
@@ -156,6 +157,29 @@ export function fillChapterExample(id) {
   updateIntegrity();
 }
 
+export function updatePreviewTab() {
+  const g = getGenome();
+  const title = document.getElementById('ch25-title');
+  const avatar = document.getElementById('chat-avatar');
+  const preview = document.getElementById('prompt-preview');
+
+  if (title) {
+    const name = g.name || g.nickname || 'Превью';
+    title.textContent = name;
+    // also update the tab label
+    const tab = document.querySelector('.ch-tab[data-id="24"]');
+    if (tab) tab.innerHTML = `<div class="ch-dot"></div>↑ ${name}`;
+  }
+  if (avatar) {
+    const gender = g.gender || '';
+    avatar.textContent = gender.toLowerCase().includes('жен') || gender.toLowerCase().includes('female') ? '♀' : '♂';
+  }
+  if (preview) {
+    const text = generatePromptText(g);
+    preview.value = text;
+  }
+}
+
 export function fillAllFromAnna() {
   document.querySelectorAll('[data-k]').forEach(el => {
     const k = el.dataset.k;
@@ -167,5 +191,6 @@ export function fillAllFromAnna() {
   updateOrient(10);
   collectData();
   updateIntegrity();
+  updatePreviewTab();
   window.goToGenome();
 }

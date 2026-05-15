@@ -3,6 +3,7 @@ import { initUI, goTo, navSection, closeModal, copyGenome, setTagGroup,
 import { buildAndShow, pb, updateOrient } from './modules/genome.js';
 import { saveCurrentPersona, loadPersona, deletePersona, renderPersonaLibrary } from './modules/storage.js';
 import { analyzeText } from './modules/analysis.js';
+import { copyPromptPreview, sendChatMessage } from './modules/chat.js';
 import { login, register, logout, isLoggedIn, getUser } from './modules/api.js';
 
 window.goTo = goTo;
@@ -21,6 +22,8 @@ window.loadPersona = loadPersona;
 window.deletePersona = deletePersona;
 window.renderPersonaLibrary = renderPersonaLibrary;
 window.analyzeText = analyzeText;
+window.copyPromptPreview = copyPromptPreview;
+window.sendChatMessage = sendChatMessage;
 window.scrollToFeatures = () => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
 
 let authMode = 'login';

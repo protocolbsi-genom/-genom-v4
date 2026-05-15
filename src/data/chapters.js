@@ -23,7 +23,7 @@ export const CHAPTERS = [
   { id: 21, icon: '▣', label: 'Режимы' },
   { id: 22, icon: '◇', label: 'Безопасность' },
   { id: 23, icon: '⬢', label: 'Канон' },
-  { id: 24, icon: '↑', label: 'Загрузить' },
+  { id: 24, icon: '↑', label: 'Превью' },
 ];
 
 export const CHAPTER_KEYS = {

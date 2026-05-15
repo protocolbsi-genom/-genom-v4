@@ -1374,52 +1374,37 @@
   </div>
 </div>
 
-<!-- ═══ 24: ЗАГРУЗКА ТЕКСТА ═══ -->
+<!-- ═══ 24: PREVIEW + CHAT ═══ -->
 <div class="chapter" data-id="24">
   <div class="chapter-header">
     <div class="chapter-num">✦</div>
     <div class="chapter-info">
-      <div class="chapter-title">Загрузить промпт</div>
-      <div class="chapter-desc">Вставь готовый текст — получи умный анализ</div>
+      <div class="chapter-title" id="ch25-title">Превью</div>
+      <div class="chapter-desc">Готовый промпт и тестовый чат с AI</div>
     </div>
   </div>
 
-  <div class="card" style="border-color:rgba(232,255,71,.2);background:rgba(232,255,71,.02)">
-    <div class="card-header"><div class="card-label">Вставить текст / промпт</div></div>
-    <div class="card-body">
-      <textarea class="xl" id="upload-text" placeholder="Вставь сюда любой текст о личности:&#10;— готовый промпт&#10;— описание персонажа&#10;— биографию&#10;— переписку&#10;&#10;ИИ проанализирует и даст точные рекомендации что добавить, что усилить, каких слоёв не хватает..." style="min-height:160px"></textarea>
-      <button onclick="analyzeText()" id="analyze-btn" style="margin-top:12px;width:100%;padding:14px;border-radius:8px;background:var(--acc);color:#000;font-family:var(--dis);font-size:11px;font-weight:800;letter-spacing:0.1em;border:none;cursor:pointer;transition:all .15s">
-        ⬛ АНАЛИЗИРОВАТЬ
-      </button>
-    </div>
-  </div>
-
-  <div id="analysis-result" style="display:none">
-    <div class="card" style="border-color:rgba(180,127,255,.25);background:rgba(180,127,255,.04)">
+  <div class="ch25-grid">
+    <div class="card">
       <div class="card-header">
-        <div class="card-label purple">✦ Анализ генома</div>
-        <div id="analysis-status" style="font-size:10px;color:var(--acc4)">обрабатывается...</div>
+        <div class="card-label">Сгенерированный промпт</div>
+        <button class="mini-btn primary" onclick="copyPromptPreview()">СКОПИРОВАТЬ</button>
       </div>
-      <div class="card-body">
-        <div id="analysis-loading" style="text-align:center;padding:24px 0;color:var(--tx3);font-size:12px">
-          <div style="font-size:24px;margin-bottom:12px;animation:spin 2s linear infinite;display:inline-block">◌</div><br>
-          ИИ читает ДНК...
-        </div>
-        <div id="analysis-content" style="display:none;font-size:12px;line-height:1.9;color:var(--tx2);white-space:pre-wrap"></div>
+      <div class="card-body" style="padding:8px">
+        <textarea id="prompt-preview" class="xl" readonly style="min-height:300px;height:calc(100% - 8px);resize:none;border:none;background:transparent;font-size:11px;line-height:1.8"></textarea>
       </div>
     </div>
 
-    <div id="suggestions-block" style="display:none">
-      <div class="card">
-        <div class="card-header"><div class="card-label">Найдено в тексте</div></div>
-        <div class="card-body">
-          <div id="found-fields" class="tags"></div>
-        </div>
+    <div class="card" style="display:flex;flex-direction:column">
+      <div class="card-header">
+        <div class="card-label">Чат с AI</div>
+        <div id="chat-avatar" style="width:28px;height:28px;border-radius:50%;background:var(--s3);border:1px solid var(--br);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--acc4)">♀</div>
       </div>
-      <div class="card" style="border-color:rgba(255,79,139,.2)">
-        <div class="card-header"><div class="card-label pink">Отсутствует — нужно добавить</div></div>
-        <div class="card-body">
-          <div id="missing-fields" class="tags"></div>
+      <div class="card-body" style="flex:1;display:flex;flex-direction:column;padding:8px;overflow:hidden">
+        <div id="chat-messages" style="flex:1;overflow-y:auto;padding:8px;font-size:12px;line-height:1.7;color:var(--tx2)"></div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-shrink:0">
+          <input type="text" id="chat-input" placeholder="Напиши сообщение..." style="flex:1;min-height:40px;font-size:12px">
+          <button class="mini-btn primary" onclick="sendChatMessage()" style="padding:10px 16px;font-size:14px">→</button>
         </div>
       </div>
     </div>
