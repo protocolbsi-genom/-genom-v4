@@ -1,8 +1,7 @@
 import { initUI, goTo, navSection, closeModal, copyGenome, setTagGroup,
-  fillInputs, fillTagsIn, fillChapterExample, fillAllFromAnna } from './modules/ui.js';
+  fillChapterExample, fillAllFromAnna } from './modules/ui.js';
 import { buildAndShow, pb, updateOrient } from './modules/genome.js';
-import { saveCurrentPersona, clearGenomeForm, loadPersona,
-  deletePersona, renderPersonaLibrary } from './modules/storage.js';
+import { saveCurrentPersona, loadPersona, deletePersona, renderPersonaLibrary } from './modules/storage.js';
 import { analyzeText } from './modules/analysis.js';
 import { login, register, logout, isLoggedIn, getUser } from './modules/api.js';
 
@@ -17,7 +16,7 @@ window.buildAndShow = buildAndShow;
 window.pb = pb;
 window.updateOrient = updateOrient;
 window.saveCurrentPersona = saveCurrentPersona;
-window.clearGenomeForm = clearGenomeForm;
+window.goToGenome = () => showPage('app');
 window.loadPersona = loadPersona;
 window.deletePersona = deletePersona;
 window.renderPersonaLibrary = renderPersonaLibrary;
@@ -28,30 +27,14 @@ let authMode = 'login';
 
 function showPage(id) {
   document.querySelectorAll('.surface-page').forEach(p => p.style.display = 'none');
+  document.getElementById('app-container').style.display = 'none';
+
+  if (id === 'app') {
+    document.getElementById('app-container').style.display = 'flex';
+    return;
+  }
   const page = document.getElementById(id);
   if (page) page.style.display = 'block';
-
-  const cabinet = document.getElementById('btn-cabinet');
-  const pill = document.getElementById('integrity-pill');
-  const loginBtn = document.getElementById('btn-login');
-
-  if (id === 'page-landing' || id === 'page-auth') {
-    cabinet.style.display = 'none';
-    pill.style.display = 'none';
-    loginBtn.style.display = 'flex';
-    loginBtn.textContent = 'ВОЙТИ';
-    loginBtn.onclick = showLandingAuth;
-  }
-  if (id === 'page-dashboard') {
-    cabinet.style.display = 'flex';
-    pill.style.display = 'none';
-    loginBtn.style.display = 'none';
-  }
-  if (id === 'page-genome') {
-    cabinet.style.display = 'flex';
-    pill.style.display = 'flex';
-    loginBtn.style.display = 'none';
-  }
 }
 
 window.showLanding = () => showPage('page-landing');
@@ -60,9 +43,9 @@ window.showLandingAuth = () => showPage('page-auth');
 window.showDashboard = async () => {
   if (!isLoggedIn()) { showPage('page-landing'); return; }
   const u = getUser();
-  document.getElementById('dash-email').textContent = u.email;
+  document.getElementById('sidebar-user').textContent = u.email;
 
-  const dbEl = document.getElementById('db-status');
+  const dbEl = document.getElementById('sidebar-db-status');
   dbEl.innerHTML = '<span class="status-dot" style="background:var(--tx3)"></span> База данных: проверка...';
   try {
     const r = await fetch('/api/me', {
@@ -77,10 +60,8 @@ window.showDashboard = async () => {
   }
 
   await renderPersonaLibrary();
-  showPage('page-dashboard');
+  showPage('app');
 };
-
-window.goToGenome = () => showPage('page-genome');
 
 window.toggleAuthMode = () => {
   authMode = authMode === 'login' ? 'register' : 'login';

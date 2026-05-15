@@ -86,47 +86,30 @@
   </div>
 </div>
 
-<!-- DASHBOARD -->
-<div class="surface-page" id="page-dashboard" style="display:none">
-  <div class="surface-inner" style="max-width:800px;padding-top:24px">
-    <div class="surface-hero">
-      <div class="surface-kicker">DASHBOARD</div>
-      <div class="surface-title">Личный кабинет</div>
-    </div>
-    <div class="card">
-      <div class="card-header"><div class="card-label">Профиль</div></div>
-      <div class="card-body">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div><span style="color:var(--tx2)">Email:</span> <span id="dash-email" style="color:var(--tx)"></span></div>
-          <button class="mini-btn pink" onclick="handleLogout()">ВЫЙТИ</button>
-        </div>
+<!-- APP CONTAINER (after login) -->
+<div id="app-container" style="display:none">
+  <aside id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">ГЕНОМ <span>v4</span></div>
+      <div id="sidebar-user" class="sidebar-email"></div>
+      <div style="display:flex;gap:6px;margin-top:8px">
+        <button class="mini-btn primary" onclick="saveCurrentPersona()" style="flex:1">SAVE</button>
+        <button class="mini-btn pink" onclick="handleLogout()">ВЫЙТИ</button>
       </div>
     </div>
-    <div class="card">
-      <div class="card-header"><div class="card-label">Статус системы</div></div>
-      <div class="card-body">
-        <div style="display:flex;gap:16px;flex-wrap:wrap">
-          <div class="status-badge" id="db-status"><span class="status-dot"></span> База данных: проверка...</div>
-        </div>
-      </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Мои личности</div>
+      <div class="persona-list" id="sidebar-persona-list"></div>
     </div>
-    <div class="card">
-      <div class="card-header"><div class="card-label">Мои личности</div></div>
-      <div class="card-body">
-        <div class="persona-list" id="dash-persona-list"></div>
-        <button class="mini-btn primary" onclick="goToGenome()" style="margin-top:12px">+ НОВАЯ ЛИЧНОСТЬ</button>
-      </div>
+    <div class="sidebar-section sidebar-footer">
+      <div class="status-badge" id="sidebar-db-status"><span class="status-dot"></span> База данных: проверка...</div>
     </div>
-  </div>
-</div>
+  </aside>
 
-<!-- GENOME -->
-<div class="surface-page" id="page-genome" style="display:none">
-  <!-- CHAPTER TABS -->
-  <div class="chapters" id="chapters"></div>
-  <!-- CHAPTERS CONTENT -->
-  <div class="main">
-  <div id="chapter-container">
+  <main id="main-content">
+    <div class="chapters" id="chapters"></div>
+    <div class="main-scroll">
+    <div id="chapter-container">
 
 <!-- ═══ 0: ЯДРО ═══ -->
 <div class="chapter active" data-id="0">
@@ -1444,9 +1427,8 @@
 </div>
 
 </div><!-- /chapter-container -->
-</div><!-- /main -->
+</div><!-- /main-scroll -->
 
-<!-- BOTTOM NAV -->
 <div class="bottom-nav">
   <button class="nav-prev" id="btn-prev" onclick="navSection(-1)">←</button>
   <div class="nav-progress">
@@ -1455,6 +1437,9 @@
   </div>
   <button class="nav-next" id="btn-next" onclick="navSection(1)">Далее →</button>
 </div>
+
+</main><!-- /main-content -->
+</div><!-- /app-container -->
 
 <!-- OUTPUT MODAL -->
 <div class="modal" id="modal">
