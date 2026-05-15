@@ -54,3 +54,5 @@ build/Release
 .DS_Store
 *.tgz
 *.tsbuildinfo
+
+*.env*
