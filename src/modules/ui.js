@@ -49,6 +49,7 @@ function setupTagListeners() {
       t.classList.toggle('on');
       collectData();
       updateIntegrity();
+      updatePreviewTab();
     });
   });
 }
@@ -78,10 +79,10 @@ export function goTo(idx) {
   chs[cur].classList.add('active');
   tabs[cur].classList.add('active');
   tabs[cur].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-  const main = document.querySelector('.main');
-  if (main) main.scrollTo(0, 0);
+  document.querySelector('.main-scroll')?.scrollTo(0, 0);
   window.scrollTo(0, 0);
   updateNav();
+  updateGenomeStats();
 }
 
 export function navSection(dir) { goTo(cur + dir); }
@@ -189,8 +190,8 @@ export function updateGenomeStats() {
   const tagPct = totalTags ? Math.round(tags.length / totalTags * 100) : 0;
   const overall = Math.round((fieldPct * 0.6 + tagPct * 0.4));
 
-  document.getElementById('gs-fields').textContent = `${filled} / ${fields.length}`;
-  document.getElementById('gs-tags').textContent = `${tags.length} / ${totalTags}`;
+  document.getElementById('gs-fields').textContent = fieldPct + '%';
+  document.getElementById('gs-tags').textContent = tagPct + '%';
   document.getElementById('gs-pct').textContent = overall + '%';
 
   const bar = document.getElementById('gs-bar');

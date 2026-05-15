@@ -1,5 +1,5 @@
 import { initUI, goTo, navSection, closeModal, copyGenome, setTagGroup,
-  fillChapterExample, fillAllFromAnna } from './modules/ui.js';
+  fillChapterExample, fillAllFromAnna, updateGenomeStats } from './modules/ui.js';
 import { buildAndShow, pb, updateOrient } from './modules/genome.js';
 import { saveCurrentPersona, loadPersona, deletePersona, renderPersonaLibrary, viewPersona, downloadPersonaText, closePersonaDetail } from './modules/storage.js';
 import { analyzeText } from './modules/analysis.js';
@@ -67,6 +67,7 @@ window.showDashboard = async () => {
   }
 
   await renderPersonaLibrary();
+  updateGenomeStats();
   showPage('app');
 };
 
