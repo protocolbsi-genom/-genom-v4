@@ -24,12 +24,27 @@ let authMode = 'login';
 function showPage(id) {
   document.querySelectorAll('.surface-page').forEach(p => p.style.display = 'none');
   const page = document.getElementById(id);
-  if (page) { page.style.display = 'block'; }
-  document.getElementById('btn-cabinet').style.display = 'none';
-  document.getElementById('integrity-pill').style.display = 'none';
-  if (id === 'page-genome') {
-    document.getElementById('btn-cabinet').style.display = 'flex';
-    document.getElementById('integrity-pill').style.display = 'flex';
+  if (page) page.style.display = 'block';
+
+  const cabinet = document.getElementById('btn-cabinet');
+  const pill = document.getElementById('integrity-pill');
+  const loginBtn = document.getElementById('btn-login');
+
+  if (id === 'page-landing' || id === 'page-auth') {
+    cabinet.style.display = 'none';
+    pill.style.display = 'none';
+    loginBtn.style.display = 'flex';
+    loginBtn.textContent = isLoggedIn() ? 'КАБИНЕТ' : 'ВОЙТИ';
+    loginBtn.onclick = isLoggedIn() ? showDashboard : showLandingAuth;
+  }
+  if (id === 'page-dashboard' || id === 'page-genome') {
+    cabinet.style.display = 'flex';
+    loginBtn.style.display = 'none';
+    if (id === 'page-genome') {
+      pill.style.display = 'flex';
+    } else {
+      pill.style.display = 'none';
+    }
   }
 }
 
@@ -40,23 +55,18 @@ window.showDashboard = async () => {
   if (!isLoggedIn()) { showPage('page-landing'); return; }
   const u = getUser();
   document.getElementById('dash-email').textContent = u.email;
-  document.getElementById('btn-login').style.display = 'none';
-  document.getElementById('integrity-pill').style.display = 'none';
   await renderPersonaLibrary();
-  document.getElementById('dash-persona-list').innerHTML = document.getElementById('persona-list')?.innerHTML || '';
+  const listHtml = document.getElementById('persona-list')?.innerHTML;
+  if (listHtml) document.getElementById('dash-persona-list').innerHTML = listHtml;
   showPage('page-dashboard');
 };
 
-window.goToGenome = () => {
-  showPage('page-genome');
-  document.getElementById('btn-cabinet').style.display = 'flex';
-  document.getElementById('integrity-pill').style.display = 'flex';
-};
+window.goToGenome = () => showPage('page-genome');
 
 window.toggleAuthMode = () => {
   authMode = authMode === 'login' ? 'register' : 'login';
   document.querySelector('.auth-title').textContent = authMode === 'login' ? 'Вход' : 'Регистрация';
-  document.getElementById('auth-btn').textContent = authMode === 'login' ? 'ВОЙТИ' : 'СОЗДАТЬ';
+  document.getElementById('auth-btn').textContent = authMode === 'login' ? 'ВОЙТИ' : 'СОЗДАТЬ АККАУНТ';
   document.getElementById('auth-toggle-text').textContent = authMode === 'login' ? 'Нет аккаунта?' : 'Уже есть аккаунт?';
   document.getElementById('auth-toggle-btn').textContent = authMode === 'login' ? 'РЕГИСТРАЦИЯ' : 'ВОЙТИ';
   document.getElementById('auth-error').style.display = 'none';
@@ -72,16 +82,15 @@ window.handleAuth = async () => {
 
   if (!email || !password) { errEl.textContent = 'Заполни все поля'; errEl.style.display = 'block'; return; }
   if (authMode === 'register' && password.length < 6) { errEl.textContent = 'Пароль минимум 6 символов'; errEl.style.display = 'block'; return; }
+  if (authMode === 'register' && password.length < 4) { errEl.textContent = 'Пароль минимум 4 символа'; errEl.style.display = 'block'; return; }
 
   try {
     if (authMode === 'login') {
       await login(email, password);
-      await showDashboard();
+      showDashboard();
     } else {
       await register(email, password);
-      sucEl.textContent = 'Аккаунт создан! Вход выполнен.';
-      sucEl.style.display = 'block';
-      setTimeout(() => showDashboard(), 1000);
+      showDashboard();
     }
   } catch (e) {
     errEl.textContent = e.message;
@@ -91,9 +100,12 @@ window.handleAuth = async () => {
 
 window.handleLogout = () => {
   logout();
-  document.getElementById('btn-cabinet').style.display = 'none';
-  document.getElementById('integrity-pill').style.display = 'none';
   showPage('page-landing');
+  document.querySelector('.auth-title').textContent = 'Вход';
+  authMode = 'login';
+  document.getElementById('auth-btn').textContent = 'ВОЙТИ';
+  document.getElementById('auth-pass').value = '';
+  document.getElementById('auth-email').value = '';
 };
 
 document.addEventListener('DOMContentLoaded', () => {
