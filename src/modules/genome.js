@@ -28,7 +28,7 @@ export function updateIntegrity() {
   document.getElementById('i-pct').textContent = pct + '%';
   const dot = document.getElementById('i-dot');
   dot.style.background = pct < 30 ? 'var(--br)' : pct < 70 ? 'var(--acc4)' : 'var(--acc)';
-  document.querySelectorAll('.ch-tab').forEach((tab, i) => {
+  document.querySelectorAll('#chapters .ch-tab').forEach((tab, i) => {
     const ch = document.querySelector(`.chapter[data-id="${i}"]`);
     if (!ch) return;
     const hasVal = [...ch.querySelectorAll('[data-k]')].some(el => el.value?.trim())

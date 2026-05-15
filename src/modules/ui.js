@@ -66,7 +66,7 @@ function setupModalClose() {
 
 export function goTo(idx) {
   const chs = document.querySelectorAll('.chapter');
-  const tabs = document.querySelectorAll('.ch-tab');
+  const tabs = document.querySelectorAll('#chapters .ch-tab');
   chs[cur].classList.remove('active');
   tabs[cur].classList.remove('active');
   cur = Math.max(0, Math.min(idx, CHAPTERS.length - 1));
