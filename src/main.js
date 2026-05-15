@@ -162,7 +162,28 @@ document.getElementById('settings-modal')?.addEventListener('click', function(e)
   if (e.target === this) closeSettings();
 });
 
+window.toggleTheme = () => {
+  const html = document.documentElement;
+  if (html.dataset.theme === 'light') {
+    delete html.dataset.theme;
+    localStorage.setItem('genom_theme', 'dark');
+  } else {
+    html.dataset.theme = 'light';
+    localStorage.setItem('genom_theme', 'light');
+  }
+  updateThemeButton();
+};
+function updateThemeButton() {
+  const btn = document.getElementById('theme-toggle');
+  if (!btn) return;
+  const isLight = document.documentElement.dataset.theme === 'light';
+  btn.textContent = isLight ? '🌙 ТЁМНАЯ' : '☀ СВЕТЛАЯ';
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  const saved = localStorage.getItem('genom_theme');
+  if (saved === 'light') document.documentElement.dataset.theme = 'light';
+  updateThemeButton();
   initUI();
   showPage('page-landing');
 });
