@@ -100,14 +100,6 @@
     <div class="sidebar-section">
       <div class="sidebar-title">Мои личности</div>
       <div class="persona-list" id="sidebar-persona-list"></div>
-      <div id="persona-detail" style="display:none">
-        <div class="sidebar-title" style="margin-top:8px">Просмотр</div>
-        <textarea id="persona-detail-text" readonly placeholder="Выбери личность из списка..."></textarea>
-        <div id="persona-detail-actions">
-          <button class="mini-btn primary" onclick="downloadPersonaText()" style="flex:1">СКАЧАТЬ .TXT</button>
-          <button class="mini-btn pink" onclick="closePersonaDetail()">✕</button>
-        </div>
-      </div>
     </div>
     <div class="sidebar-section sidebar-footer">
       <div class="status-badge" id="sidebar-db-status"><span class="status-dot"></span> База данных: проверка...</div>
@@ -1457,6 +1449,22 @@
     <div class="modal-footer">
       <button class="modal-copy" onclick="copyGenome()">СКОПИРОВАТЬ ДНК</button>
       <button class="modal-copy secondary" onclick="saveCurrentPersona()">СОХРАНИТЬ</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="persona-modal">
+  <div class="modal-box" style="max-width:620px">
+    <div class="modal-header">
+      <div class="modal-title" id="persona-modal-title">Просмотр личности</div>
+      <div class="modal-close" onclick="closePersonaDetail()">✕</div>
+    </div>
+    <div class="modal-body">
+      <textarea id="persona-detail-text" readonly style="min-height:260px;width:100%;font-size:11px;font-family:var(--mono);background:transparent;border:none;color:var(--tx2);resize:none;line-height:1.7"></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-copy" onclick="downloadPersonaText()">СКАЧАТЬ .TXT</button>
+      <button class="modal-copy secondary" onclick="closePersonaDetail()">ЗАКРЫТЬ</button>
     </div>
   </div>
 </div>

@@ -143,13 +143,16 @@ export async function renderPersonaLibrary() {
 export function viewPersona(id) {
   const item = getPersonas().find(p => p.id === id);
   if (!item) return;
-  const detail = document.getElementById('persona-detail');
+  const modal = document.getElementById('persona-modal');
   const textarea = document.getElementById('persona-detail-text');
-  if (!detail || !textarea) return;
+  const title = document.getElementById('persona-modal-title');
+  if (!modal || !textarea || !title) return;
+  title.textContent = item.name || 'Просмотр личности';
   const text = generatePromptText(item.data || {});
   textarea.value = text;
-  detail.style.display = 'block';
+  modal.classList.add('open');
   window._viewingPersonaId = id;
+  modal.onclick = e => { if (e.target === modal) closePersonaDetail(); };
 }
 
 export function downloadPersonaText() {
@@ -168,6 +171,6 @@ export function downloadPersonaText() {
 }
 
 export function closePersonaDetail() {
-  const detail = document.getElementById('persona-detail');
-  if (detail) detail.style.display = 'none';
+  const modal = document.getElementById('persona-modal');
+  if (modal) modal.classList.remove('open');
 }

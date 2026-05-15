@@ -922,28 +922,7 @@ input[type=range].blue::-webkit-slider-thumb{background:var(--acc3);box-shadow:0
   border-color: rgba(255,79,139,.25);
 }
 
-/* ── Persona detail panel ── */
-#persona-detail {
-  margin-top: 8px;
-}
-#persona-detail textarea {
-  width: 100%;
-  min-height: 120px;
-  font-size: 10px;
-  line-height: 1.6;
-  background: var(--s2);
-  border: 1px solid var(--br);
-  border-radius: 6px;
-  color: var(--tx2);
-  padding: 8px;
-  resize: vertical;
-  font-family: var(--mono);
-}
-#persona-detail-actions {
-  display: flex;
-  gap: 4px;
-  margin-top: 6px;
-}
+
 .sidebar-footer {
   margin-top: auto;
   padding-top: 16px;
