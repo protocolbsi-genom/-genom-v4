@@ -1,16 +1,13 @@
-import { initUI, goTo, navSection, showHomePage, showLibraryPage,
-  hidePages, closeModal, copyGenome, setTagGroup, fillInputs,
-  fillTagsIn, fillChapterExample, fillAllFromAnna } from './modules/ui.js';
-import { collectData, updateIntegrity, buildAndShow, pb, updateOrient } from './modules/genome.js';
+import { initUI, goTo, navSection, closeModal, copyGenome, setTagGroup,
+  fillInputs, fillTagsIn, fillChapterExample, fillAllFromAnna } from './modules/ui.js';
+import { buildAndShow, pb, updateOrient } from './modules/genome.js';
 import { saveCurrentPersona, clearGenomeForm, loadPersona,
   deletePersona, renderPersonaLibrary } from './modules/storage.js';
 import { analyzeText } from './modules/analysis.js';
+import { login, register, logout, isLoggedIn, getUser } from './modules/api.js';
 
 window.goTo = goTo;
 window.navSection = navSection;
-window.showHomePage = showHomePage;
-window.showLibraryPage = showLibraryPage;
-window.hidePages = hidePages;
 window.closeModal = closeModal;
 window.copyGenome = copyGenome;
 window.setTagGroup = setTagGroup;
@@ -25,5 +22,116 @@ window.loadPersona = loadPersona;
 window.deletePersona = deletePersona;
 window.renderPersonaLibrary = renderPersonaLibrary;
 window.analyzeText = analyzeText;
+window.scrollToFeatures = () => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
 
-document.addEventListener('DOMContentLoaded', initUI);
+let authMode = 'login';
+
+function showPage(id) {
+  document.querySelectorAll('.surface-page').forEach(p => p.style.display = 'none');
+  const page = document.getElementById(id);
+  if (page) page.style.display = 'block';
+
+  const cabinet = document.getElementById('btn-cabinet');
+  const pill = document.getElementById('integrity-pill');
+  const loginBtn = document.getElementById('btn-login');
+
+  if (id === 'page-landing' || id === 'page-auth') {
+    cabinet.style.display = 'none';
+    pill.style.display = 'none';
+    loginBtn.style.display = 'flex';
+    loginBtn.textContent = 'ВОЙТИ';
+    loginBtn.onclick = showLandingAuth;
+  }
+  if (id === 'page-dashboard') {
+    cabinet.style.display = 'flex';
+    pill.style.display = 'none';
+    loginBtn.style.display = 'none';
+  }
+  if (id === 'page-genome') {
+    cabinet.style.display = 'flex';
+    pill.style.display = 'flex';
+    loginBtn.style.display = 'none';
+  }
+}
+
+window.showLanding = () => showPage('page-landing');
+window.showLandingAuth = () => showPage('page-auth');
+
+window.showDashboard = async () => {
+  if (!isLoggedIn()) { showPage('page-landing'); return; }
+  const u = getUser();
+  document.getElementById('dash-email').textContent = u.email;
+
+  const dbEl = document.getElementById('db-status');
+  dbEl.innerHTML = '<span class="status-dot" style="background:var(--tx3)"></span> База данных: проверка...';
+  try {
+    const r = await fetch('/api/me', {
+      headers: { 'Authorization': 'Bearer ' + localStorage.getItem('genom_v4_token') }
+    });
+    const data = await r.json();
+    dbEl.innerHTML = data.user
+      ? '<span class="status-dot" style="background:var(--acc)"></span> База данных: подключена'
+      : '<span class="status-dot" style="background:var(--acc2)"></span> База данных: ошибка';
+  } catch {
+    dbEl.innerHTML = '<span class="status-dot" style="background:var(--acc2)"></span> База данных: недоступна';
+  }
+
+  await renderPersonaLibrary();
+  const listHtml = document.getElementById('persona-list')?.innerHTML;
+  if (listHtml) document.getElementById('dash-persona-list').innerHTML = listHtml;
+  showPage('page-dashboard');
+};
+
+window.goToGenome = () => showPage('page-genome');
+
+window.toggleAuthMode = () => {
+  authMode = authMode === 'login' ? 'register' : 'login';
+  document.querySelector('.auth-title').textContent = authMode === 'login' ? 'Вход' : 'Регистрация';
+  document.getElementById('auth-btn').textContent = authMode === 'login' ? 'ВОЙТИ' : 'СОЗДАТЬ АККАУНТ';
+  document.getElementById('auth-toggle-text').textContent = authMode === 'login' ? 'Нет аккаунта?' : 'Уже есть аккаунт?';
+  document.getElementById('auth-toggle-btn').textContent = authMode === 'login' ? 'РЕГИСТРАЦИЯ' : 'ВОЙТИ';
+  document.getElementById('auth-error').style.display = 'none';
+};
+
+window.handleAuth = async () => {
+  let email = document.getElementById('auth-email').value.trim();
+  let password = document.getElementById('auth-pass').value;
+  const errEl = document.getElementById('auth-error');
+  errEl.style.display = 'none';
+
+  if (!email || !password) {
+    email = 'user@genom.app';
+    password = 'genom123';
+  }
+
+  try {
+    if (authMode === 'login') {
+      await login(email, password).catch(async () => {
+        await register(email, password, email.split('@')[0]);
+      });
+    } else {
+      await register(email, password, email.split('@')[0]).catch(async () => {
+        await login(email, password);
+      });
+    }
+    showDashboard();
+  } catch (e) {
+    errEl.textContent = e.message || 'Ошибка соединения';
+    errEl.style.display = 'block';
+  }
+};
+
+window.handleLogout = () => {
+  logout();
+  document.getElementById('auth-pass').value = '';
+  document.getElementById('auth-email').value = '';
+  authMode = 'login';
+  document.querySelector('.auth-title').textContent = 'Вход';
+  document.getElementById('auth-btn').textContent = 'ВОЙТИ';
+  showPage('page-landing');
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  initUI();
+  showPage('page-landing');
+});

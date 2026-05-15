@@ -11,14 +11,112 @@
 
 <!-- TOP BAR -->
 <div class="top-bar">
-  <div class="top-logo" style="cursor:default">ГЕНОМ <span>v4</span></div>
-  <div class="top-actions">
-    <div class="integrity-pill">
+  <div class="top-logo" onclick="showLanding()" style="cursor:pointer">ГЕНОМ <span>v4</span></div>
+  <div class="top-actions" id="top-actions">
+    <div class="integrity-pill" id="integrity-pill" style="display:none">
       <div class="integrity-dot" id="i-dot"></div>
       <span id="i-pct">0%</span>
     </div>
-    <button class="top-btn copy" onclick="saveCurrentPersona()">SAVE</button>
-    <button class="top-btn gen" onclick="buildAndShow()">⬛ ДНК</button>
+    <button class="top-btn copy" id="btn-cabinet" onclick="showDashboard()" style="display:none">КАБИНЕТ</button>
+    <button class="top-btn copy" id="btn-login" onclick="showLandingAuth()">ВОЙТИ</button>
+  </div>
+</div>
+
+<!-- LANDING PAGE -->
+<div class="surface-page" id="page-landing">
+  <div class="landing-hero">
+    <div class="landing-bg"></div>
+    <div class="landing-content">
+      <div class="landing-badge">PERSONALITY GENOME v4</div>
+      <h1 class="landing-title">Создай<br><span class="glow">живую личность</span></h1>
+      <p class="landing-sub">25 слоёв генома → системный промпт для чата.<br>Не анкета — операционная система поведения.</p>
+      <div class="landing-actions">
+        <button class="landing-btn primary" onclick="scrollToFeatures()">УЗНАТЬ БОЛЬШЕ</button>
+        <button class="landing-btn secondary" onclick="showLandingAuth()">НАЧАТЬ →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="landing-features" id="features">
+    <div class="landing-feature-card">
+      <div class="lf-icon">✦</div>
+      <div class="lf-title">25 слоёв</div>
+      <div class="lf-desc">От ядра до канона — каждый аспект личности</div>
+    </div>
+    <div class="landing-feature-card">
+      <div class="lf-icon" style="color:var(--acc3)">◈</div>
+      <div class="lf-title">AI-анализ</div>
+      <div class="lf-desc">ИИ оценит полноту профиля и укажет пробелы</div>
+    </div>
+    <div class="landing-feature-card">
+      <div class="lf-icon" style="color:var(--acc2)">⬡</div>
+      <div class="lf-title">Облачное хранение</div>
+      <div class="lf-desc">Все личности сохраняются в твоём кабинете</div>
+    </div>
+    <div class="landing-feature-card">
+      <div class="lf-icon" style="color:var(--acc4)">◎</div>
+      <div class="lf-title">Anti-dump rule</div>
+      <div class="lf-desc">Персона раскрывается постепенно, как человек</div>
+    </div>
+  </div>
+
+  <div class="landing-cta">
+    <h2>Готов создать личность?</h2>
+    <p>Зарегистрируйся и получи доступ к полному геному</p>
+    <button class="landing-btn primary" onclick="showLandingAuth()">СОЗДАТЬ АККАУНТ</button>
+  </div>
+</div>
+
+<!-- AUTH PAGE -->
+<div class="surface-page" id="page-auth" style="display:none">
+  <div class="surface-inner" style="max-width:400px;margin:60px auto">
+    <div class="auth-box">
+      <div class="auth-title">Вход</div>
+      <div id="auth-error" style="color:var(--acc2);font-size:12px;margin-bottom:12px;display:none"></div>
+      <div class="sub-label">Email</div>
+      <input type="email" id="auth-email" placeholder="your@email.com">
+      <div class="sub-label">Пароль</div>
+      <input type="password" id="auth-pass" placeholder="от 6 символов">
+      <button class="landing-btn primary" id="auth-btn" onclick="handleAuth()" style="width:100%;margin-top:16px">ВОЙТИ</button>
+      <div class="auth-switch">
+        <span id="auth-toggle-text">Нет аккаунта?</span>
+        <button class="mini-btn" id="auth-toggle-btn" onclick="toggleAuthMode()" style="margin-left:8px">РЕГИСТРАЦИЯ</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="surface-page" id="page-dashboard" style="display:none">
+  <div class="surface-inner" style="max-width:800px;padding-top:24px">
+    <div class="surface-hero">
+      <div class="surface-kicker">DASHBOARD</div>
+      <div class="surface-title">Личный кабинет</div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-label">Профиль</div></div>
+      <div class="card-body">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div><span style="color:var(--tx2)">Email:</span> <span id="dash-email" style="color:var(--tx)"></span></div>
+          <button class="mini-btn pink" onclick="handleLogout()">ВЫЙТИ</button>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-label">Статус системы</div></div>
+      <div class="card-body">
+        <div style="display:flex;gap:16px;flex-wrap:wrap">
+          <div class="status-badge" id="db-status"><span class="status-dot"></span> База данных: проверка...</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-label">Мои личности</div></div>
+      <div class="card-body">
+        <div class="persona-list" id="dash-persona-list"></div>
+        <button class="mini-btn primary" onclick="goToGenome()" style="margin-top:12px">+ НОВАЯ ЛИЧНОСТЬ</button>
+      </div>
+    </div>
   </div>
 </div>
 
