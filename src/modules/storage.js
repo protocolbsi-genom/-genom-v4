@@ -1,4 +1,4 @@
-import { getGenome, collectData, updateIntegrity } from './genome.js';
+import { getGenome, collectData, updateIntegrity, generatePromptText } from './genome.js';
 import { isLoggedIn, getPersonas as apiGetPersonas, savePersona as apiSavePersona, deletePersona as apiDeletePersona } from './api.js';
 
 function getPersonas() {
@@ -127,17 +127,47 @@ export async function renderPersonaLibrary() {
   }
   el.innerHTML = list.map(p => {
     const d = p.data || {};
-    const sub = [d.name, d.tag_agent_type, d.agent_role].filter(Boolean).join(' · ');
-    const date = new Date(p.updatedAt).toLocaleString('ru-RU');
-    return `<div class="persona-item">
+    return `<div class="persona-item" onclick="viewPersona('${p.id}')">
       <div class="persona-meta">
         <div class="persona-name">${escapeHtml(p.name)}</div>
-        <div class="persona-sub">${escapeHtml(sub || 'Без описания')} · ${date}</div>
+        <div class="persona-sub" style="display:none"></div>
       </div>
-      <div class="persona-actions">
+      <div class="persona-actions" onclick="event.stopPropagation()">
         <button class="mini-btn primary" onclick="loadPersona('${p.id}')">LOAD</button>
         <button class="mini-btn pink" onclick="deletePersona('${p.id}')">DEL</button>
       </div>
     </div>`;
   }).join('');
+}
+
+export function viewPersona(id) {
+  const item = getPersonas().find(p => p.id === id);
+  if (!item) return;
+  const detail = document.getElementById('persona-detail');
+  const textarea = document.getElementById('persona-detail-text');
+  if (!detail || !textarea) return;
+  const text = generatePromptText(item.data || {});
+  textarea.value = text;
+  detail.style.display = 'block';
+  window._viewingPersonaId = id;
+}
+
+export function downloadPersonaText() {
+  const id = window._viewingPersonaId;
+  const item = getPersonas().find(p => p.id === id);
+  if (!item) return;
+  const textarea = document.getElementById('persona-detail-text');
+  if (!textarea) return;
+  const blob = new Blob([textarea.value], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = (item.name || 'persona').replace(/[^a-zA-Zа-яА-Я0-9]/g, '_') + '.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+export function closePersonaDetail() {
+  const detail = document.getElementById('persona-detail');
+  if (detail) detail.style.display = 'none';
 }

@@ -1,7 +1,7 @@
 import { initUI, goTo, navSection, closeModal, copyGenome, setTagGroup,
   fillChapterExample, fillAllFromAnna } from './modules/ui.js';
 import { buildAndShow, pb, updateOrient } from './modules/genome.js';
-import { saveCurrentPersona, loadPersona, deletePersona, renderPersonaLibrary } from './modules/storage.js';
+import { saveCurrentPersona, loadPersona, deletePersona, renderPersonaLibrary, viewPersona, downloadPersonaText, closePersonaDetail } from './modules/storage.js';
 import { analyzeText } from './modules/analysis.js';
 import { copyPromptPreview, sendChatMessage, initPreviewChat, resetChat } from './modules/chat.js';
 import { login, register, logout, isLoggedIn, getUser } from './modules/api.js';
@@ -21,6 +21,9 @@ window.goToGenome = () => showPage('app');
 window.loadPersona = loadPersona;
 window.deletePersona = deletePersona;
 window.renderPersonaLibrary = renderPersonaLibrary;
+window.viewPersona = viewPersona;
+window.downloadPersonaText = downloadPersonaText;
+window.closePersonaDetail = closePersonaDetail;
 window.analyzeText = analyzeText;
 window.copyPromptPreview = copyPromptPreview;
 window.sendChatMessage = sendChatMessage;
