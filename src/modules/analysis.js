@@ -78,15 +78,38 @@ export function analyzeText() {
   document.getElementById('suggestions-block').style.display = 'none';
   document.getElementById('analysis-status').textContent = 'обрабатывается...';
 
-  setTimeout(() => {
-    const audit = auditPersonaText(text);
-    const result = formatAudit(audit);
-    document.getElementById('analysis-loading').style.display = 'none';
-    document.getElementById('analysis-content').style.display = 'block';
-    document.getElementById('analysis-content').textContent = result;
-    document.getElementById('analysis-status').textContent = 'готово ✓';
-    renderSuggestions(audit);
+  const doAnalyze = async () => {
+    try {
+      let result;
+      const isLoggedIn = !!(localStorage.getItem('genom_v4_token'));
+      if (isLoggedIn) {
+        const res = await fetch('/api/analyze', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('genom_v4_token'),
+          },
+          body: JSON.stringify({ text }),
+        });
+        const data = await res.json();
+        result = data.analysis || 'No analysis';
+      } else {
+        await new Promise(r => setTimeout(r, 250));
+        const audit = auditPersonaText(text);
+        result = formatAudit(audit);
+        renderSuggestions(audit);
+      }
+      document.getElementById('analysis-loading').style.display = 'none';
+      document.getElementById('analysis-content').style.display = 'block';
+      document.getElementById('analysis-content').textContent = result;
+      document.getElementById('analysis-status').textContent = 'готово ✓';
+    } catch (e) {
+      document.getElementById('analysis-content').textContent = 'Ошибка: ' + e.message;
+      document.getElementById('analysis-content').style.display = 'block';
+    }
     btn.textContent = '⬛ АНАЛИЗИРОВАТЬ СНОВА';
     btn.disabled = false;
-  }, 250);
+  };
+
+  doAnalyze();
 }

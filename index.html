@@ -18,6 +18,7 @@
     </div>
     <button class="top-btn copy" onclick="showLibraryPage()">ЛИЧНОСТИ</button>
     <button class="top-btn copy" onclick="saveCurrentPersona()">SAVE</button>
+    <button class="top-btn copy" id="btn-login" onclick="showLoginModal()" style="display:flex">ВОЙТИ</button>
     <button class="top-btn gen" onclick="buildAndShow()">⬛ ДНК</button>
   </div>
 </div>
@@ -1425,6 +1426,27 @@
     <div class="modal-footer">
       <button class="modal-copy" onclick="copyGenome()">СКОПИРОВАТЬ ДНК</button>
       <button class="modal-copy secondary" onclick="saveCurrentPersona()">СОХРАНИТЬ</button>
+    </div>
+  </div>
+</div>
+
+<!-- LOGIN MODAL -->
+<div class="modal" id="login-modal">
+  <div class="modal-box" style="max-width:380px;margin:auto">
+    <div class="modal-header">
+      <div class="modal-title">Вход / Регистрация</div>
+      <div class="modal-close" onclick="closeLoginModal()">✕</div>
+    </div>
+    <div class="modal-body">
+      <div id="login-error" style="color:var(--acc2);font-size:11px;margin-bottom:8px;display:none"></div>
+      <div class="sub-label">Email</div>
+      <input type="email" id="login-email" placeholder="your@email.com">
+      <div class="sub-label">Пароль</div>
+      <input type="password" id="login-password" placeholder="от 6 символов">
+      <div style="display:flex;gap:8px;margin-top:16px">
+        <button class="modal-copy secondary" onclick="apiLogin()">ВОЙТИ</button>
+        <button class="modal-copy" onclick="apiRegister()">РЕГИСТРАЦИЯ</button>
+      </div>
     </div>
   </div>
 </div>

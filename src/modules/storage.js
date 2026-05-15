@@ -1,4 +1,5 @@
 import { getGenome, collectData, updateIntegrity } from './genome.js';
+import { isLoggedIn, getPersonas as apiGetPersonas, savePersona as apiSavePersona, deletePersona as apiDeletePersona } from './api.js';
 
 function getPersonas() {
   try { return JSON.parse(localStorage.getItem('genome_v4_personas') || '[]'); }
@@ -24,11 +25,13 @@ function hidePages() {
   document.getElementById('library-page').classList.remove('open');
 }
 
-export function saveCurrentPersona() {
+export async function saveCurrentPersona() {
   const snap = currentGenomeSnapshot();
   const fallback = snap.name || 'Новая личность';
   const title = prompt('Название личности для сохранения:', fallback);
   if (!title) return;
+
+  // save locally
   const list = getPersonas();
   const existing = list.findIndex(p => p.name === title);
   const item = {
@@ -39,6 +42,16 @@ export function saveCurrentPersona() {
   };
   if (existing >= 0) list[existing] = item; else list.unshift(item);
   setPersonas(list);
+
+  // save to cloud if logged in
+  if (isLoggedIn()) {
+    try {
+      await apiSavePersona(item.id, title, snap);
+    } catch (e) {
+      console.warn('Cloud save failed:', e);
+    }
+  }
+
   renderPersonaLibrary();
 }
 
@@ -73,17 +86,40 @@ export function loadPersona(id) {
   window.goTo(0);
 }
 
-export function deletePersona(id) {
+export async function deletePersona(id) {
   const item = getPersonas().find(p => p.id === id);
   if (!item) return;
-  if (!confirm(`Удалить личность "${item.name}" из локальной библиотеки?`)) return;
+  if (!confirm(`Удалить личность "${item.name}"?`)) return;
   setPersonas(getPersonas().filter(p => p.id !== id));
+  if (isLoggedIn()) {
+    try { await apiDeletePersona(id); } catch {}
+  }
   renderPersonaLibrary();
 }
 
-export function renderPersonaLibrary() {
+export async function renderPersonaLibrary() {
+  let list;
+
+  if (isLoggedIn()) {
+    try {
+      const cloudPersonas = await apiGetPersonas();
+      const localPersonas = getPersonas();
+      // merge: cloud takes precedence for same-id items
+      const merged = [...cloudPersonas];
+      localPersonas.forEach(local => {
+        if (!merged.find(m => m.id === local.id)) {
+          merged.push(local);
+        }
+      });
+      list = merged;
+      setPersonas(merged);
+    } catch {
+      list = getPersonas();
+    }
+  } else {
+    list = getPersonas();
+  }
   const el = document.getElementById('persona-list');
-  const list = getPersonas();
   if (!list.length) {
     el.innerHTML = `<div class="card"><div class="card-body" style="font-size:12px;color:var(--tx3);line-height:1.8">Пока нет сохранённых личностей. Заполни геном и нажми SAVE.</div></div>`;
     return;
