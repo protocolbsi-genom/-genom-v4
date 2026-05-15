@@ -1,4 +1,3 @@
-import './styles/style.css';
 import { initUI, goTo, navSection, showHomePage, showLibraryPage,
   hidePages, closeModal, copyGenome, setTagGroup, fillInputs,
   fillTagsIn, fillChapterExample, fillAllFromAnna } from './modules/ui.js';
@@ -82,7 +81,7 @@ function updateAuthUI() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', updateAuthUI);
-
-// Init after DOM ready
-document.addEventListener('DOMContentLoaded', initUI);
+document.addEventListener('DOMContentLoaded', () => {
+  updateAuthUI();
+  initUI();
+});

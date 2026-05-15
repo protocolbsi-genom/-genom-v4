@@ -56,3 +56,4 @@ build/Release
 *.tsbuildinfo
 
 *.env*
+worker-build/
