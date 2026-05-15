@@ -18,13 +18,19 @@ export function initUI() {
 
 function buildTabs() {
   const tabsEl = document.getElementById('chapters');
+  const statsEl = document.getElementById('genome-stats');
   CHAPTERS.forEach((c, i) => {
     const t = document.createElement('div');
     t.className = 'ch-tab' + (i === 0 ? ' active' : '');
     t.dataset.id = i;
     t.innerHTML = `<div class="ch-dot"></div>${c.icon} ${c.label}`;
     t.onclick = () => goTo(i);
-    tabsEl.appendChild(t);
+    if (i === 24) {
+      t.className += ' ch25-inline';
+      if (statsEl) statsEl.appendChild(t);
+    } else {
+      tabsEl.appendChild(t);
+    }
   });
 }
 

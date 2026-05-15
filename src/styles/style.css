@@ -695,15 +695,15 @@ input[type=range].blue::-webkit-slider-thumb{background:var(--acc3);box-shadow:0
 .status-dot.online { background: var(--acc); }
 .status-dot.offline { background: var(--acc2); }
 
-/* ── GENOME STATS BAR ── */
+/* ── GENOME STATS BAR (top row, includes ch25 button) ── */
 .genome-stats {
   display: flex;
-  gap: 16px;
-  padding: 6px 16px;
-  font-size: 10px;
+  gap: 20px;
+  padding: 10px 16px;
+  font-size: 12px;
   color: var(--tx3);
-  border-bottom: 1px solid var(--br);
   background: var(--s1);
+  border-bottom: 1px solid var(--br);
   flex-shrink: 0;
   align-items: center;
   flex-wrap: wrap;
@@ -712,18 +712,18 @@ input[type=range].blue::-webkit-slider-thumb{background:var(--acc3);box-shadow:0
   display: flex;
   align-items: center;
   gap: 4px;
+  white-space: nowrap;
 }
 .genome-stat-value {
   color: var(--tx2);
   font-weight: 500;
 }
 .genome-stat-bar {
-  width: 60px;
-  height: 3px;
+  width: 80px;
+  height: 4px;
   background: var(--br);
   border-radius: 2px;
   overflow: hidden;
-  margin-left: 4px;
 }
 .genome-stat-fill {
   height: 100%;
@@ -736,30 +736,31 @@ input[type=range].blue::-webkit-slider-thumb{background:var(--acc3);box-shadow:0
 .genome-stat-fill.blue { background: var(--acc3); }
 .genome-stat-fill.green { background: #4ade80; }
 
-/* ── 25th TAB — special style ── */
-.ch-tab[data-id="24"] {
+/* ── 25th TAB in stats bar ── */
+.ch-tab.ch25-inline {
   margin-left: auto;
   border-color: rgba(180,127,255,.3);
   background: rgba(180,127,255,.08);
   color: var(--acc4);
-  position: sticky;
-  right: 4px;
-  z-index: 1;
+  flex-shrink: 0;
+  padding: 6px 16px;
+  font-size: 12px;
 }
-.ch-tab[data-id="24"].active {
+.ch-tab.ch25-inline.active {
   border-color: var(--acc4);
   background: rgba(180,127,255,.15);
   color: var(--acc4);
 }
-.ch-tab[data-id="24"] .ch-dot {
-  background: var(--acc4);
-}
+.ch-tab.ch25-inline .ch-dot { background: var(--acc4); }
 
+/* ── CHAPTERS TABS (below stats) ── */
 #main-content .chapters {
   position: static;
   border-bottom: 1px solid var(--br);
   flex-shrink: 0;
-  padding-right: 0;
+}
+#main-content .chapters .ch-tab[data-id="24"] {
+  display: none;
 }
 
 /* ── PREVIEW TAB (ch25) ── */
@@ -882,13 +883,16 @@ input[type=range].blue::-webkit-slider-thumb{background:var(--acc3);box-shadow:0
   position: relative;
 }
 
+#main-content { display: flex; flex-direction: column; }
+.genome-stats { order: 1; }
 #main-content .chapters {
   position: static;
   border-bottom: 1px solid var(--br);
   flex-shrink: 0;
+  order: 2;
 }
-
-.main-scroll {
+.main-scroll { order: 3; }
+#main-content .bottom-nav { order: 4; }
   flex: 1;
   overflow-y: auto;
   padding: 0 0 80px;
