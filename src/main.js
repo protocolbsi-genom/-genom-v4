@@ -5,7 +5,6 @@ import { collectData, updateIntegrity, buildAndShow, pb, updateOrient } from './
 import { saveCurrentPersona, clearGenomeForm, loadPersona,
   deletePersona, renderPersonaLibrary } from './modules/storage.js';
 import { analyzeText } from './modules/analysis.js';
-import { login, register, logout, isLoggedIn, getUser } from './modules/api.js';
 
 window.goTo = goTo;
 window.navSection = navSection;
@@ -27,6 +26,4 @@ window.deletePersona = deletePersona;
 window.renderPersonaLibrary = renderPersonaLibrary;
 window.analyzeText = analyzeText;
 
-document.addEventListener('DOMContentLoaded', () => {
-  initUI();
-});
+document.addEventListener('DOMContentLoaded', initUI);

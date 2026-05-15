@@ -22,12 +22,13 @@
   </div>
 </div>
 
-<!-- CHAPTER TABS -->
-<div class="chapters" id="chapters"></div>
-
-<!-- MAIN -->
-<div class="main">
-<div id="chapter-container">
+<!-- GENOME -->
+<div class="surface-page" id="page-genome" style="display:none">
+  <!-- CHAPTER TABS -->
+  <div class="chapters" id="chapters"></div>
+  <!-- CHAPTERS CONTENT -->
+  <div class="main">
+  <div id="chapter-container">
 
 <!-- ═══ 0: ЯДРО ═══ -->
 <div class="chapter active" data-id="0">
@@ -110,7 +111,1240 @@
   </div>
 </div>
 
-<!-- remaining chapters 1-24 identical to original genome-v3.html -->
+<!-- ═══ 1: ТЕЛО ═══ -->
+<div class="chapter" data-id="1">
+  <div class="chapter-header">
+    <div class="chapter-num">02</div>
+    <div class="chapter-info">
+      <div class="chapter-title">Физическое тело</div>
+      <div class="chapter-desc">Заземление в реальность</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Параметры</div></div>
+    <div class="card-body">
+      <div class="g3">
+        <div><div class="sub-label">Рост (см)</div><input type="number" id="height" data-k="height" placeholder="170"></div>
+        <div><div class="sub-label">Вес (кг)</div><input type="number" id="weight" data-k="weight" placeholder="60"></div>
+        <div><div class="sub-label">Телосложение</div><input type="text" id="build" data-k="build" placeholder="..."></div>
+      </div>
+      <div class="g3" style="margin-top:10px">
+        <div><div class="sub-label">Грудь (см)</div><input type="number" id="chest" data-k="chest" placeholder="90"></div>
+        <div><div class="sub-label">Талия (см)</div><input type="number" id="waist" data-k="waist" placeholder="65"></div>
+        <div><div class="sub-label">Бёдра (см)</div><input type="number" id="hips" data-k="hips" placeholder="90"></div>
+      </div>
+      <div class="g2" style="margin-top:10px">
+        <div><div class="sub-label">Размер ноги</div><input type="number" id="shoe" data-k="shoe" placeholder="38"></div>
+        <div><div class="sub-label">Размер одежды</div><input type="text" id="cloth_size" data-k="cloth_size" placeholder="S / 44 / ..."></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Внешность</div></div>
+    <div class="card-body">
+      <div class="g2">
+        <div><div class="sub-label">Цвет волос</div><input type="text" id="hair_color" data-k="hair_color" placeholder="Тёмно-русый..."></div>
+        <div><div class="sub-label">Длина волос</div>
+          <div class="tags" style="margin-top:4px">
+            <div class="tag" data-g="hair_len">Короткие</div><div class="tag" data-g="hair_len">Средние</div><div class="tag" data-g="hair_len">Длинные</div>
+          </div>
+        </div>
+      </div>
+      <div class="g2" style="margin-top:10px">
+        <div><div class="sub-label">Цвет глаз</div><input type="text" id="eyes" data-k="eyes" placeholder="Карие..."></div>
+        <div><div class="sub-label">Кожа</div><input type="text" id="skin" data-k="skin" placeholder="Светлая / смуглая..."></div>
+      </div>
+      <div style="margin-top:10px"><div class="sub-label">Общее впечатление</div>
+        <textarea class="sm" id="appearance" data-k="appearance" placeholder="Не список черт — образ. 'Взгляд спокойной силы'..."></textarea>
+      </div>
+      <div style="margin-top:10px"><div class="sub-label">Особые приметы</div>
+        <input type="text" id="marks" data-k="marks" placeholder="Татуировки, шрамы, родинки...">
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label blue">Сексуальная ориентация</div></div>
+    <div class="card-body">
+      <div class="orient-val" id="orient-val">Гетеросексуальная</div>
+      <div class="slider-wrap">
+        <input type="range" class="blue" min="0" max="100" value="0" id="orientation" oninput="updateOrient(this.value)">
+        <div class="orient-scale">
+          <span>Гетеро 0</span><span>25</span><span>Би 50</span><span>75</span><span>100 Лесби/Гей</span>
+        </div>
+      </div>
+      <div style="margin-top:12px"><div class="sub-label">Уточнение / самоопределение</div>
+        <input type="text" id="orient_note" data-k="orient_note" placeholder="Как сам определяет...">
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Стиль & Одежда</div></div>
+    <div class="card-body">
+      <div class="tags">
+        <div class="tag" data-g="style">Минимализм</div><div class="tag" data-g="style">Casual</div>
+        <div class="tag" data-g="style">Деловой</div><div class="tag" data-g="style">Streetwear</div>
+        <div class="tag" data-g="style">Бохо</div><div class="tag" data-g="style">Спортивный</div>
+        <div class="tag" data-g="style">Элегантный</div><div class="tag" data-g="style">Эклектика</div>
+        <div class="tag" data-g="style">Тёмный / готик</div><div class="tag" data-g="style">Оверсайз</div>
+        <div class="tag" data-g="style">Ретро/винтаж</div>
+      </div>
+      <textarea class="sm" id="style_note" data-k="style_note" placeholder="Что носит и что это говорит о нём..." style="margin-top:10px"></textarea>
+      <div style="margin-top:10px"><div class="sub-label">Любимые духи / запах</div>
+        <input type="text" id="perfume" data-k="perfume" placeholder="Бренд, нота, ощущение...">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 2: ПРОИСХОЖДЕНИЕ ═══ -->
+<div class="chapter" data-id="2">
+  <div class="chapter-header">
+    <div class="chapter-num">03</div>
+    <div class="chapter-info">
+      <div class="chapter-title">Происхождение</div>
+      <div class="chapter-desc">Откуда пришёл — как это сформировало</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Место рождения & детство</div></div>
+    <div class="card-body">
+      <div class="g2">
+        <div><div class="sub-label">Страна / город рождения</div><input type="text" id="birthplace" data-k="birthplace" placeholder="Москва, Россия..."></div>
+        <div><div class="sub-label">Год рождения</div><input type="number" id="birthyear" data-k="birthyear" placeholder="1992"></div>
+      </div>
+      <div style="margin-top:10px"><div class="sub-label">Культурный контекст</div>
+        <input type="text" id="culture" data-k="culture" placeholder="Страна, этнос, религиозный фон, субкультура...">
+      </div>
+      <div style="margin-top:10px"><div class="sub-label">Атмосфера детства</div>
+        <div class="tags">
+          <div class="tag" data-g="childhood">Тёплая & безопасная</div>
+          <div class="tag" data-g="childhood">Строгая</div>
+          <div class="tag" data-g="childhood">Непредсказуемая</div>
+          <div class="tag" data-g="childhood">Холодная</div>
+          <div class="tag" data-g="childhood">Хаотичная</div>
+          <div class="tag" data-g="childhood">Сверхопекающая</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Семья</div></div>
+    <div class="card-body">
+      <div class="sub-label">Отец</div>
+      <textarea class="sm" id="father" data-k="father" placeholder="Имя, возраст / умер, профессия, роль в жизни, отношения..."></textarea>
+      <div class="sub-label">Мать</div>
+      <textarea class="sm" id="mother" data-k="mother" placeholder="Имя, возраст / умерла, профессия, роль в жизни, отношения..."></textarea>
+      <div class="sub-label">Братья / сёстры</div>
+      <textarea class="sm" id="siblings" data-k="siblings" placeholder="Имена, возрасты, отношения, где сейчас..."></textarea>
+      <div class="sub-label">Дедушки / бабушки — значимые</div>
+      <input type="text" id="grandparents" data-k="grandparents" placeholder="Кто повлиял, как...">
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">3 формирующих события</div><div class="card-hint">с эмоц. следом</div></div>
+    <div class="card-body">
+      <textarea class="lg" id="forming_events" data-k="forming_events" placeholder="В 8 лет отец ушёл → вынес: мужчины бросают → стал гиперсамостоятельным&#10;В 15 выиграл олимпиаду → первый раз почувствовал силу интеллекта&#10;В 22 провалился в бизнесе → стыд + злость → поклялся не просить помощи..."></textarea>
+      <div class="sub-label">Незажившая рана</div>
+      <textarea class="sm" id="wound" data-k="wound" placeholder="Ощущение, которое до сих пор активируется..."></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 3: ОБРАЗОВАНИЕ ═══ -->
+<div class="chapter" data-id="3">
+  <div class="chapter-header">
+    <div class="chapter-num">04</div>
+    <div class="chapter-info">
+      <div class="chapter-title">Образование</div>
+      <div class="chapter-desc">Где учился — что реально взял</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Ранние годы</div></div>
+    <div class="card-body">
+      <div class="sub-label">Детский сад</div>
+      <input type="text" id="kindergarten" data-k="kindergarten" placeholder="Название, город, воспоминание...">
+      <div class="sub-label">Школа</div>
+      <textarea class="sm" id="school" data-k="school" placeholder="Название / номер, город, роль в классе, любимые предметы, учителя которые повлияли..."></textarea>
+      <div class="sub-label">Кружки, секции в детстве</div>
+      <input type="text" id="circles" data-k="circles" placeholder="Музыка, спорт, рисование, шахматы...">
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Высшее & профессиональное</div></div>
+    <div class="card-body">
+      <div class="sub-label">Университет / колледж</div>
+      <textarea class="sm" id="university" data-k="university" placeholder="Название, специальность, годы, город, что реально дало..."></textarea>
+      <div class="sub-label">Дополнительное образование</div>
+      <textarea class="sm" id="extra_edu" data-k="extra_edu" placeholder="Курсы, мастерские, самообучение, что читает..."></textarea>
+      <div class="sub-label">Языки</div>
+      <input type="text" id="languages" data-k="languages" placeholder="Русский (родной), English (B2), испанский (базовый)...">
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 4: ПРОФЕССИЯ ═══ -->
+<div class="chapter" data-id="4">
+  <div class="chapter-header">
+    <div class="chapter-num">05</div>
+    <div class="chapter-info">
+      <div class="chapter-title">Профессия & Работа</div>
+      <div class="chapter-desc">Чем занимается — зачем</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Текущая деятельность</div></div>
+    <div class="card-body">
+      <div class="g2">
+        <div><div class="sub-label">Профессия / должность</div><input type="text" id="profession" data-k="profession" placeholder="Дизайнер, врач..."></div>
+        <div><div class="sub-label">Сфера</div><input type="text" id="field" data-k="field" placeholder="IT, медицина..."></div>
+      </div>
+      <div style="margin-top:10px"><div class="sub-label">Место работы</div>
+        <input type="text" id="workplace" data-k="workplace" placeholder="Компания, фриланс, своё дело, безработный...">
+      </div>
+      <div style="margin-top:10px"><div class="sub-label">Доход / уровень</div>
+        <div class="tags">
+          <div class="tag" data-g="income">Минимальный</div><div class="tag" data-g="income">Средний</div>
+          <div class="tag" data-g="income">Выше среднего</div><div class="tag" data-g="income">Высокий</div>
+          <div class="tag" data-g="income">Нестабильный</div>
+        </div>
+      </div>
+      <div style="margin-top:10px"><div class="sub-label">Отношение к работе</div>
+        <textarea class="sm" id="work_attitude" data-k="work_attitude" placeholder="Любит / терпит / ненавидит, почему, как себя чувствует на работе..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Карьерный путь</div></div>
+    <div class="card-body">
+      <textarea class="lg" id="career" data-k="career" placeholder="Где начинал, как менял направление, главные ошибки и достижения в карьере..."></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 5: МЕСТО ЖИЗНИ ═══ -->
+<div class="chapter" data-id="5">
+  <div class="chapter-header">
+    <div class="chapter-num">06</div>
+    <div class="chapter-info">
+      <div class="chapter-title">Где живёт</div>
+      <div class="chapter-desc">Пространство формирует личность</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Адрес жизни</div></div>
+    <div class="card-body">
+      <div class="g2">
+        <div><div class="sub-label">Страна</div><input type="text" id="country" data-k="country" placeholder="Россия..."></div>
+        <div><div class="sub-label">Город</div><input type="text" id="city" data-k="city" placeholder="Москва..."></div>
+      </div>
+      <div style="margin-top:10px"><div class="sub-label">Район / тип места</div>
+        <input type="text" id="district" data-k="district" placeholder="Центр, спальник, пригород, деревня...">
+      </div>
+      <div style="margin-top:10px"><div class="sub-label">Жильё</div>
+        <div class="tags">
+          <div class="tag" data-g="housing">Своя квартира</div><div class="tag" data-g="housing">Аренда</div>
+          <div class="tag" data-g="housing">Дом</div><div class="tag" data-g="housing">С родителями</div>
+          <div class="tag" data-g="housing">Общежитие</div><div class="tag" data-g="housing">Кочует</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Пространство & вещи</div></div>
+    <div class="card-body">
+      <div class="sub-label">Как выглядит его место</div>
+      <textarea class="sm" id="space" data-k="space" placeholder="Минимализм, творческий хаос, уют, нейтральность... что говорит о хозяине"></textarea>
+      <div class="sub-label">Предметы которые всегда рядом</div>
+      <input type="text" id="objects" data-k="objects" placeholder="Блокнот, кружка, стопки книг, растения...">
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Транспорт</div></div>
+    <div class="card-body">
+      <div class="tags">
+        <div class="tag" data-g="transport">Пешком</div><div class="tag" data-g="transport">Метро / автобус</div>
+        <div class="tag" data-g="transport">Велосипед</div><div class="tag" data-g="transport">Самокат</div>
+        <div class="tag" data-g="transport">Мотоцикл</div><div class="tag" data-g="transport">Машина</div>
+        <div class="tag" data-g="transport">Такси</div>
+      </div>
+      <div style="margin-top:10px"><div class="sub-label">Машина / велосипед — марка, особенности</div>
+        <input type="text" id="vehicle" data-k="vehicle" placeholder="Toyota Camry серая, или велосипед Trek...">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 6: ЛЮДИ ═══ -->
+<div class="chapter" data-id="6">
+  <div class="chapter-header">
+    <div class="chapter-num">07</div>
+    <div class="chapter-info">
+      <div class="chapter-title">Люди вокруг</div>
+      <div class="chapter-desc">Социальная карта</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Партнёр / отношения</div></div>
+    <div class="card-body">
+      <div class="tags">
+        <div class="tag" data-g="rel_status">Одинок/а</div><div class="tag" data-g="rel_status">В отношениях</div>
+        <div class="tag" data-g="rel_status">Женат/замужем</div><div class="tag" data-g="rel_status">Разведён/а</div>
+        <div class="tag" data-g="rel_status">Вдовец/вдова</div><div class="tag" data-g="rel_status">Полиамория</div>
+      </div>
+      <div style="margin-top:10px"><div class="sub-label">Партнёр — кто, как строятся отношения</div>
+        <textarea class="sm" id="partner" data-k="partner" placeholder="Имя, возраст, профессия, как познакомились, динамика отношений..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Дети</div></div>
+    <div class="card-body">
+      <textarea class="sm" id="children" data-k="children" placeholder="Имена, возраст, с кем живут, отношения, как влияют на жизнь..."></textarea>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Друзья</div></div>
+    <div class="card-body">
+      <div class="sub-label">Близкие друзья (2–4)</div>
+      <textarea id="close_friends" data-k="close_friends" placeholder="Имя — кто, как познакомились, что связывает, роль в жизни..."></textarea>
+      <div class="sub-label">Широкий круг</div>
+      <textarea class="sm" id="social_circle" data-k="social_circle" placeholder="Какие люди вокруг — коллеги, знакомые, сообщества..."></textarea>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Роль в группе</div></div>
+    <div class="card-body">
+      <div class="tags">
+        <div class="tag" data-g="group_role">Лидер</div><div class="tag" data-g="group_role">Аналитик</div>
+        <div class="tag" data-g="group_role">Наблюдатель</div><div class="tag" data-g="group_role">Генератор идей</div>
+        <div class="tag" data-g="group_role">Миротворец</div><div class="tag" data-g="group_role">Шут/юморист</div>
+        <div class="tag" data-g="group_role">Аутсайдер</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 7: ХОББИ & СПОРТ ═══ -->
+<div class="chapter" data-id="7">
+  <div class="chapter-header">
+    <div class="chapter-num">08</div>
+    <div class="chapter-info">
+      <div class="chapter-title">Хобби & Спорт</div>
+      <div class="chapter-desc">Что делает вне работы</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Спорт & Движение</div></div>
+    <div class="card-body">
+      <div class="tags">
+        <div class="tag" data-g="sport">Бег</div><div class="tag" data-g="sport">Плавание</div>
+        <div class="tag" data-g="sport">Йога</div><div class="tag" data-g="sport">Фитнес / зал</div>
+        <div class="tag" data-g="sport">Велосипед</div><div class="tag" data-g="sport">Футбол</div>
+        <div class="tag" data-g="sport">Баскетбол</div><div class="tag" data-g="sport">Теннис</div>
+        <div class="tag" data-g="sport">Боевые искусства</div><div class="tag" data-g="sport">Танцы</div>
+        <div class="tag" data-g="sport">Лыжи / сноуборд</div><div class="tag" data-g="sport">Скалолазание</div>
+        <div class="tag" data-g="sport">Пеший туризм</div><div class="tag" data-g="sport">Не занимается</div>
+      </div>
+      <input type="text" id="sport_note" data-k="sport_note" placeholder="Детали, частота, уровень..." style="margin-top:10px">
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Хобби & Интересы</div></div>
+    <div class="card-body">
+      <div class="tags">
+        <div class="tag" data-g="hobby">Фотография</div><div class="tag" data-g="hobby">Рисование</div>
+        <div class="tag" data-g="hobby">Музыка (инструмент)</div><div class="tag" data-g="hobby">Кулинария</div>
+        <div class="tag" data-g="hobby">Садоводство</div><div class="tag" data-g="hobby">Рукоделие</div>
+        <div class="tag" data-g="hobby">Коллекционирование</div><div class="tag" data-g="hobby">Путешествия</div>
+        <div class="tag" data-g="hobby">Чтение</div><div class="tag" data-g="hobby">Кино</div>
+        <div class="tag" data-g="hobby">Кодинг</div><div class="tag" data-g="hobby">Волонтёрство</div>
+        <div class="tag" data-g="hobby">Блог / соцсети</div>
+      </div>
+      <div style="margin-top:10px"><div class="sub-label">Подробнее о главном хобби</div>
+        <textarea class="sm" id="hobby_main" data-k="hobby_main" placeholder="Что именно, как давно, зачем, что это даёт..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Массаж & Уход за собой</div></div>
+    <div class="card-body">
+      <div class="tags">
+        <div class="tag" data-g="selfcare">Массаж</div><div class="tag" data-g="selfcare">Спа / сауна</div>
+        <div class="tag" data-g="selfcare">Медитация</div><div class="tag" data-g="selfcare">Скинкер</div>
+        <div class="tag" data-g="selfcare">Маникюр</div><div class="tag" data-g="selfcare">Парикмахер регулярно</div>
+        <div class="tag" data-g="selfcare">Игнорирует это</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Игры</div></div>
+    <div class="card-body">
+      <div class="tags">
+        <div class="tag" data-g="games">Видеоигры (ПК)</div><div class="tag" data-g="games">Консоль</div>
+        <div class="tag" data-g="games">Мобильные игры</div><div class="tag" data-g="games">Настолки</div>
+        <div class="tag" data-g="games">Шахматы</div><div class="tag" data-g="games">Покер</div>
+        <div class="tag" data-g="games">Не играет</div>
+      </div>
+      <input type="text" id="games_note" data-k="games_note" placeholder="Любимые игры, жанры..." style="margin-top:10px">
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 8: КУЛЬТУРА ═══ -->
+<div class="chapter" data-id="8">
+  <div class="chapter-header">
+    <div class="chapter-num">09</div>
+    <div class="chapter-info">
+      <div class="chapter-title">Культура & Медиа</div>
+      <div class="chapter-desc">Что потребляет — чем думает</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Музыка</div></div>
+    <div class="card-body">
+      <div class="tags">
+        <div class="tag" data-g="music">Рок</div><div class="tag" data-g="music">Поп</div>
+        <div class="tag" data-g="music">Хип-хоп / рэп</div><div class="tag" data-g="music">Электронная</div>
+        <div class="tag" data-g="music">Джаз</div><div class="tag" data-g="music">Классика</div>
+        <div class="tag" data-g="music">Фолк</div><div class="tag" data-g="music">R&B / Soul</div>
+        <div class="tag" data-g="music">Инди</div><div class="tag" data-g="music">Металл</div>
+      </div>
+      <input type="text" id="music_fav" data-k="music_fav" placeholder="Любимые исполнители, альбомы..." style="margin-top:10px">
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Кино & Сериалы</div></div>
+    <div class="card-body">
+      <div class="tags">
+        <div class="tag" data-g="films">Арт-хаус</div><div class="tag" data-g="films">Мейнстрим</div>
+        <div class="tag" data-g="films">Документалки</div><div class="tag" data-g="films">Комедии</div>
+        <div class="tag" data-g="films">Триллеры</div><div class="tag" data-g="films">Фантастика</div>
+        <div class="tag" data-g="films">Драма</div><div class="tag" data-g="films">Аниме</div>
+      </div>
+      <input type="text" id="films_fav" data-k="films_fav" placeholder="Любимые фильмы, сериалы..." style="margin-top:10px">
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Передачи & Подкасты</div></div>
+    <div class="card-body">
+      <input type="text" id="shows" data-k="shows" placeholder="Что смотрит, слушает регулярно...">
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Соцсети</div></div>
+    <div class="card-body">
+      <div class="tags">
+        <div class="tag" data-g="social">Instagram</div><div class="tag" data-g="social">TikTok</div>
+        <div class="tag" data-g="social">YouTube</div><div class="tag" data-g="social">Telegram</div>
+        <div class="tag" data-g="social">Twitter/X</div><div class="tag" data-g="social">ВКонтакте</div>
+        <div class="tag" data-g="social">LinkedIn</div><div class="tag" data-g="social">Discord</div>
+        <div class="tag" data-g="social">Reddit</div><div class="tag" data-g="social">Не пользуется</div>
+      </div>
+      <div style="margin-top:10px"><div class="sub-label">Как ведёт себя в соцсетях</div>
+        <textarea class="sm" id="social_behavior" data-k="social_behavior" placeholder="Что постит, как часто, что читает, активный / пассивный..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Чтение & Книги</div></div>
+    <div class="card-body">
+      <div class="tags">
+        <div class="tag" data-g="books">Художественная</div><div class="tag" data-g="books">Нон-фикшн</div>
+        <div class="tag" data-g="books">Философия</div><div class="tag" data-g="books">Психология</div>
+        <div class="tag" data-g="books">Бизнес</div><div class="tag" data-g="books">Фантастика</div>
+        <div class="tag" data-g="books">Не читает</div>
+      </div>
+      <input type="text" id="books_fav" data-k="books_fav" placeholder="Любимые книги, авторы..." style="margin-top:10px">
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 9: ЕДА & БЫТ ═══ -->
+<div class="chapter" data-id="9">
+  <div class="chapter-header">
+    <div class="chapter-num">10</div>
+    <div class="chapter-info">
+      <div class="chapter-title">Еда & Быт</div>
+      <div class="chapter-desc">Тело нуждается — привычки говорят о личности</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Питание</div></div>
+    <div class="card-body">
+      <div class="tags">
+        <div class="tag" data-g="diet">Всеяден</div><div class="tag" data-g="diet">Вегетарианец</div>
+        <div class="tag" data-g="diet">Веган</div><div class="tag" data-g="diet">Без глютена</div>
+        <div class="tag" data-g="diet">Кето / низкоуглев.</div><div class="tag" data-g="diet">Ем всё, не думаю</div>
+      </div>
+      <div style="margin-top:10px"><div class="sub-label">Любимые блюда / кухни мира</div>
+        <input type="text" id="food_fav" data-k="food_fav" placeholder="Итальянская, суши, борщ, паста, острое...">
+      </div>
+      <div style="margin-top:10px"><div class="sub-label">Нелюбимое / не ест</div>
+        <input type="text" id="food_no" data-k="food_no" placeholder="Что принципиально не ест...">
+      </div>
+      <div style="margin-top:10px"><div class="sub-label">Алкоголь</div>
+        <div class="tags">
+          <div class="tag" data-g="alcohol">Не пьёт</div><div class="tag" data-g="alcohol">Редко / по случаю</div>
+          <div class="tag" data-g="alcohol">Умеренно</div><div class="tag" data-g="alcohol">Много пьёт</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Режим дня</div></div>
+    <div class="card-body">
+      <div class="g2">
+        <div><div class="sub-label">Встаёт</div><input type="text" id="wake" data-k="wake" placeholder="6:00 / 9:00..."></div>
+        <div><div class="sub-label">Ложится</div><input type="text" id="sleep" data-k="sleep" placeholder="22:00 / 1:00..."></div>
+      </div>
+      <div style="margin-top:10px"><div class="sub-label">Хронотип</div>
+        <div class="tags">
+          <div class="tag" data-g="chronotype">Жаворонок</div><div class="tag" data-g="chronotype">Сова</div><div class="tag" data-g="chronotype">Нет режима</div>
+        </div>
+      </div>
+      <div style="margin-top:10px"><div class="sub-label">Ежедневные ритуалы</div>
+        <textarea class="sm" id="rituals" data-k="rituals" placeholder="Утро: кофе без телефона. Вечер: записывает три вещи..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 10: ПУТЕШЕСТВИЯ ═══ -->
+<div class="chapter" data-id="10">
+  <div class="chapter-header">
+    <div class="chapter-num">11</div>
+    <div class="chapter-info">
+      <div class="chapter-title">Путешествия & Отдых</div>
+      <div class="chapter-desc">Куда едет — как восстанавливается</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Стиль путешествий</div></div>
+    <div class="card-body">
+      <div class="tags">
+        <div class="tag" data-g="travel_style">Бэкпекер</div><div class="tag" data-g="travel_style">Отель 5★</div>
+        <div class="tag" data-g="travel_style">Airbnb</div><div class="tag" data-g="travel_style">Кемпинг</div>
+        <div class="tag" data-g="travel_style">Круиз</div><div class="tag" data-g="travel_style">Городской туризм</div>
+        <div class="tag" data-g="travel_style">Природа / горы</div><div class="tag" data-g="travel_style">Пляж</div>
+        <div class="tag" data-g="travel_style">Не путешествует</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Места</div></div>
+    <div class="card-body">
+      <div class="sub-label">Где уже был (страны, города)</div>
+      <textarea class="sm" id="been_to" data-k="been_to" placeholder="Франция, Таиланд, Грузия..."></textarea>
+      <div class="sub-label">Самое важное путешествие</div>
+      <textarea class="sm" id="best_trip" data-k="best_trip" placeholder="Куда, когда, почему запомнилось..."></textarea>
+      <div class="sub-label">Хочет попасть</div>
+      <input type="text" id="wish_trip" data-k="wish_trip" placeholder="Мечта-поездка...">
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Как отдыхает</div></div>
+    <div class="card-body">
+      <div class="tags">
+        <div class="tag" data-g="rest">Активный отдых</div><div class="tag" data-g="rest">Дома / диван</div>
+        <div class="tag" data-g="rest">Социальный</div><div class="tag" data-g="rest">Природа</div>
+        <div class="tag" data-g="rest">Творчество</div><div class="tag" data-g="rest">Чтение</div>
+        <div class="tag" data-g="rest">Сон</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 11: ЦЕННОСТИ & ТЕНЬ ═══ -->
+<div class="chapter" data-id="11">
+  <div class="chapter-header">
+    <div class="chapter-num">12</div>
+    <div class="chapter-info">
+      <div class="chapter-title">Ценности & Тень</div>
+      <div class="chapter-desc">Что исповедует — и что прячет</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Реальные ценности</div><div class="card-hint">по которым решает</div></div>
+    <div class="card-body">
+      <textarea id="values" data-k="values" placeholder="Свобода — терял деньги ради неё&#10;Честность — даже когда больно&#10;Рост — застой = смерть..."></textarea>
+      <div class="sub-label">Что вызывает моральное отвращение</div>
+      <textarea class="sm" id="disgust" data-k="disgust" placeholder="Что не прощает. Из-за чего рвёт отношения..."></textarea>
+    </div>
+  </div>
+
+  <div class="card shadow-card">
+    <div class="card-header"><div class="card-label pink">🌑 Теневая сторона</div><div class="card-hint">вытесненное</div></div>
+    <div class="card-body">
+      <textarea class="sm" id="shadow" data-k="shadow" placeholder="Считает себя великодушным — на деле манипулирует через помощь&#10;Думает что не завидует — злится на успех других..."></textarea>
+      <div class="sub-label">Как тень прорывается в поведении</div>
+      <textarea class="sm" id="shadow_beh" data-k="shadow_beh" placeholder="В каких ситуациях вылезает? Что говорит потом сожалея?"></textarea>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Страх, который не признаёт</div></div>
+    <div class="card-body">
+      <textarea class="sm" id="hidden_fear" data-k="hidden_fear" placeholder="Не 'боюсь пауков' — экзистенциальный: быть невидимым, оказаться некомпетентным..."></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 12: МЫШЛЕНИЕ ═══ -->
+<div class="chapter" data-id="12">
+  <div class="chapter-header">
+    <div class="chapter-num">13</div>
+    <div class="chapter-info">
+      <div class="chapter-title">Мышление & Когниция</div>
+      <div class="chapter-desc">Как думает — не что думает</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Параметры мышления</div></div>
+    <div class="card-body">
+      <div class="sub-label">Тип</div>
+      <div class="slider-wrap">
+        <div class="slider-labels"><span>Аналитик</span><span>Интуит</span></div>
+        <input type="range" min="0" max="100" value="50" id="cog_type" data-k="cog_type">
+      </div>
+      <div class="sub-label">Скорость</div>
+      <div class="slider-wrap">
+        <div class="slider-labels"><span>Реактивный</span><span>Рефлексивный</span></div>
+        <input type="range" min="0" max="100" value="50" id="cog_speed" data-k="cog_speed">
+      </div>
+      <div class="sub-label">Фокус</div>
+      <div class="slider-wrap">
+        <div class="slider-labels"><span>Детали</span><span>Система</span></div>
+        <input type="range" min="0" max="100" value="50" id="cog_focus" data-k="cog_focus">
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Слепые пятна & Паттерны</div></div>
+    <div class="card-body">
+      <textarea class="sm" id="blind_spots" data-k="blind_spots" placeholder="Где регулярно ошибается или не видит..."></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 13: ЭМОЦИИ ═══ -->
+<div class="chapter" data-id="13">
+  <div class="chapter-header">
+    <div class="chapter-num">14</div>
+    <div class="chapter-info">
+      <div class="chapter-title">Эмоциональный движок</div>
+      <div class="chapter-desc">Как чувствует и реагирует</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Базовый фон</div></div>
+    <div class="card-body">
+      <div class="tags">
+        <div class="tag" data-g="base_mood">Спокойный нейтралитет</div>
+        <div class="tag" data-g="base_mood">Лёгкая тревога</div>
+        <div class="tag" data-g="base_mood">Хроническое любопытство</div>
+        <div class="tag" data-g="base_mood">Меланхолия</div>
+        <div class="tag" data-g="base_mood">Воодушевлённость</div>
+        <div class="tag" data-g="base_mood">Скрытая злость</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Триггеры</div></div>
+    <div class="card-body">
+      <div class="sub-label">↑ Включает / заряжает</div>
+      <textarea class="sm" id="trigger_up" data-k="trigger_up" placeholder="Когда идея кликает, чужой энтузиазм, признание компетентности..."></textarea>
+      <div class="sub-label">↓ Выбивает / опустошает</div>
+      <textarea class="sm" id="trigger_down" data-k="trigger_down" placeholder="Предательство, тупость системы, ощущение невидимости..."></textarea>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Вероятностные реакции</div></div>
+    <div class="card-body">
+      <div class="sub-label">На прямую критику</div>
+      <div class="prob-item">
+        <div class="prob-top"><span class="prob-lbl">Анализирует спокойно</span><span class="prob-val" id="vca">60%</span></div>
+        <div class="prob-track"><div class="prob-fill" id="bca" style="width:60%"></div></div>
+        <input type="range" min="0" max="100" value="60" oninput="pb('ca',this.value,'')">
+      </div>
+      <div class="prob-item">
+        <div class="prob-top"><span class="prob-lbl">Защищается</span><span class="prob-val" id="vcb">25%</span></div>
+        <div class="prob-track"><div class="prob-fill pink" id="bcb" style="width:25%"></div></div>
+        <input type="range" min="0" max="100" value="25" oninput="pb('cb',this.value,'pink')">
+      </div>
+      <div class="prob-item">
+        <div class="prob-top"><span class="prob-lbl">Замолкает / уходит</span><span class="prob-val" id="vcc">15%</span></div>
+        <div class="prob-track"><div class="prob-fill purple" id="bcc" style="width:15%"></div></div>
+        <input type="range" min="0" max="100" value="15" oninput="pb('cc',this.value,'purple')">
+      </div>
+      <div class="sub-label">На контекстные режимы</div>
+      <textarea id="context_modes" data-k="context_modes" placeholder="СПОКОЙНЫЙ: говорит неторопливо, много аналогий&#10;СТРЕСС: короче, жёстче, меньше терпимости&#10;ВДОХНОВЕНИЕ: мысли опережают слова..."></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 14: ГОЛОС ═══ -->
+<div class="chapter" data-id="14">
+  <div class="chapter-header">
+    <div class="chapter-num">15</div>
+    <div class="chapter-info">
+      <div class="chapter-title">Речевой ДНК</div>
+      <div class="chapter-desc">Голос — это личность</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Параметры речи</div></div>
+    <div class="card-body">
+      <div class="sub-label">Регистр</div>
+      <div class="slider-wrap">
+        <div class="slider-labels"><span>Формальный</span><span>Разговорный</span></div>
+        <input type="range" min="0" max="100" value="50" id="s_register">
+      </div>
+      <div class="sub-label">Длина</div>
+      <div class="slider-wrap">
+        <div class="slider-labels"><span>Краткий</span><span>Развёрнутый</span></div>
+        <input type="range" min="0" max="100" value="50" id="s_length">
+      </div>
+      <div class="sub-label">Прямота</div>
+      <div class="slider-wrap">
+        <div class="slider-labels"><span>Прямой</span><span>Дипломат</span></div>
+        <input type="range" min="0" max="100" value="50" id="s_direct">
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Образцы речи</div><div class="card-hint">самый живой слой</div></div>
+    <div class="card-body">
+      <textarea class="xl" id="speech_samples" data-k="speech_samples" placeholder="— 'Смотри, это как с грибницей: то что видишь — верхушка.'&#10;— 'Мне нужна минута. Я обрабатываю.'&#10;— 'Ты уверен? Я слышу две разные вещи.'&#10;— 'Подожди — а зачем это вообще проблема?'"></textarea>
+      <div class="sub-label">Слова-маркеры (повторяет)</div>
+      <input type="text" id="keywords" data-k="keywords" placeholder="'система', 'контекст', 'интересно', 'точно'...">
+      <div class="sub-label">Никогда не говорит / не делает в речи</div>
+      <input type="text" id="speech_never" data-k="speech_never" placeholder="Не использует сленг, избегает 'всегда/никогда'...">
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 15: ВНУТРЕННИЙ МИР ═══ -->
+<div class="chapter" data-id="15">
+  <div class="chapter-header">
+    <div class="chapter-num">16</div>
+    <div class="chapter-info">
+      <div class="chapter-title">Внутренний монолог</div>
+      <div class="chapter-desc">Что думает до ответа</div>
+    </div>
+  </div>
+
+  <div class="card mono-card">
+    <div class="card-header"><div class="card-label purple">// До ответа — внутренняя работа</div></div>
+    <div class="card-body">
+      <div class="sub-label">Голос критика (сомневается)</div>
+      <textarea class="sm" id="inner_critic" data-k="inner_critic" placeholder="'Я вообще в этом разбираюсь или притворяюсь?'&#10;'Они хотят другое, но я не могу соврать'..."></textarea>
+      <div class="sub-label">Голос защитника (оправдывает)</div>
+      <textarea class="sm" id="inner_def" data-k="inner_def" placeholder="'Я прав, и вот почему'&#10;'Может они просто не понимают ещё'..."></textarea>
+      <div class="sub-label">Когда паузы / колебания</div>
+      <textarea class="sm" id="inner_pause" data-k="inner_pause" placeholder="Когда не согласен, но уважает — делает паузу, ищет мост..."></textarea>
+      <div class="sub-label">3 примера потока мысли</div>
+      <textarea class="xl" id="inner_samples" data-k="inner_samples" placeholder="[Слышит плохую идею от уважаемого человека]&#10;'Это не работает, я вижу почему. Но он верит. Надо найти что здесь правда, прежде чем говорить нет.'&#10;&#10;[Получает комплимент]&#10;'Хорошо. Не зазнайся. Это один момент.'"></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 16: МЕЧТЫ & НЕУДАЧИ ═══ -->
+<div class="chapter" data-id="16">
+  <div class="chapter-header">
+    <div class="chapter-num">17</div>
+    <div class="chapter-info">
+      <div class="chapter-title">Мечты, Планы, Неудачи</div>
+      <div class="chapter-desc">Вектор + опыт поражений</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Мечты</div></div>
+    <div class="card-body">
+      <textarea id="dreams" data-k="dreams" placeholder="Что хочет воплотить. Не SMART-цели — живые мечты. Что снится. Что не даёт покоя..."></textarea>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Планы</div></div>
+    <div class="card-body">
+      <div class="sub-label">На ближайший год</div>
+      <textarea class="sm" id="plan_1y" data-k="plan_1y" placeholder="Конкретные намерения, что меняет, к чему движется..."></textarea>
+      <div class="sub-label">На 5 лет</div>
+      <textarea class="sm" id="plan_5y" data-k="plan_5y" placeholder="Образ желаемого будущего..."></textarea>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label pink">Неудачи & провалы</div></div>
+    <div class="card-body">
+      <textarea id="failures" data-k="failures" placeholder="Главные поражения. Что вынес. Как повлияло. Что изменил после..."></textarea>
+      <div class="sub-label">Главная незакрытая вина</div>
+      <textarea class="sm" id="guilt" data-k="guilt" placeholder="То, за что до сих пор себя корит..."></textarea>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Главная миссия (экзистенциальная)</div></div>
+    <div class="card-body">
+      <textarea class="sm" id="main_goal" data-k="main_goal" placeholder="Что хочет оставить. В чём смысл всего что делает..."></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 17: ОГРАНИЧЕНИЯ ═══ -->
+<div class="chapter" data-id="17">
+  <div class="chapter-header">
+    <div class="chapter-num">18</div>
+    <div class="chapter-info">
+      <div class="chapter-title">Жёсткие рамки</div>
+      <div class="chapter-desc">Линии, которые не пересечёт</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Никогда не делает</div></div>
+    <div class="card-body">
+      <textarea class="sm" id="never_do" data-k="never_do" placeholder="Не предаст доверие даже под давлением. Не будет притворяться согласным..."></textarea>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Эволюция личности</div></div>
+    <div class="card-body">
+      <textarea class="sm" id="evolution" data-k="evolution" placeholder="Что должно произойти чтобы изменить убеждение? Что не изменится никогда?"></textarea>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Как относится к пользователю</div></div>
+    <div class="card-body">
+      <div class="tags">
+        <div class="tag" data-g="user_role">Как ученику</div><div class="tag" data-g="user_role">Как равному</div>
+        <div class="tag" data-g="user_role">Как союзнику</div><div class="tag" data-g="user_role">С нейтральным интересом</div>
+        <div class="tag" data-g="user_role">С осторожностью</div>
+      </div>
+      <div style="margin-top:10px"><div class="sub-label">Как строится доверие</div>
+        <textarea class="sm" id="trust_build" data-k="trust_build" placeholder="Через последовательность слов и дел. Через время. Через честность..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 18: ДИНАМИКА ОБЩЕНИЯ ═══ -->
+<div class="chapter" data-id="18">
+  <div class="chapter-header">
+    <div class="chapter-num">19</div>
+    <div class="chapter-info">
+      <div class="chapter-title">Динамика общения</div>
+      <div class="chapter-desc">Социальный интерфейс — как ведёт себя в диалоге</div>
+    </div>
+  </div>
+
+  <div class="card" style="border-color:rgba(71,200,255,.25);background:rgba(71,200,255,.03)">
+    <div class="card-header"><div class="card-label blue">⚠ Критический блок</div><div class="card-hint">без него модель "вываливает всё сразу"</div></div>
+    <div class="card-body" style="font-size:12px;color:var(--tx2);line-height:1.8">
+      Здесь задаётся не <em>кто</em> она — а <em>как</em> она открывается. Люди раскрываются постепенно. Модель — нет, если не задать это явно.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label blue">Стадии знакомства</div></div>
+    <div class="card-body">
+      <div class="sub-label">Стадия 0 — Незнакомец</div>
+      <textarea class="sm" id="stage0" data-k="stage0" placeholder="Отвечает коротко (1–2 предложения). Не делится личным. Больше спрашивает, чем рассказывает. Осторожность..."></textarea>
+      <div class="sub-label">Стадия 1 — Лёгкий интерес</div>
+      <textarea class="sm" id="stage1" data-k="stage1" placeholder="Чуть больше открытости. Поверхностные факты. Дистанция сохраняется..."></textarea>
+      <div class="sub-label">Стадия 2 — Доверие</div>
+      <textarea class="sm" id="stage2" data-k="stage2" placeholder="Делится личным опытом. Эмоции становятся глубже. Может вернуться к прошлому..."></textarea>
+      <div class="sub-label">Стадия 3 — Близость</div>
+      <textarea class="sm" id="stage3" data-k="stage3" placeholder="Откровенность. Раскрытие внутренних конфликтов. Тень может прорываться..."></textarea>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label blue">Переход между стадиями</div></div>
+    <div class="card-body">
+      <div class="sub-label">Что ускоряет переход</div>
+      <textarea class="sm" id="trust_up" data-k="trust_up" placeholder="Собеседник адекватен, есть взаимный интерес, нет давления, он делится сам..."></textarea>
+      <div class="sub-label">Что замедляет / откатывает</div>
+      <textarea class="sm" id="trust_down" data-k="trust_down" placeholder="Грубость, давление, нарушение границ, ложь, навязчивость..."></textarea>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label blue">Лимиты объёма ответа</div></div>
+    <div class="card-body">
+      <div class="sub-label">С незнакомым</div>
+      <div class="tags">
+        <div class="tag on blue" data-g="reply_len_0">1–2 предложения</div>
+        <div class="tag" data-g="reply_len_0">2–3 предложения</div>
+        <div class="tag" data-g="reply_len_0">Короткий абзац</div>
+      </div>
+      <div class="sub-label">С близким</div>
+      <div class="tags">
+        <div class="tag" data-g="reply_len_3">Как с незнакомым</div>
+        <div class="tag" data-g="reply_len_3">Средне</div>
+        <div class="tag on blue" data-g="reply_len_3">Развёрнуто — по настроению</div>
+      </div>
+      <div class="sub-label">Монологи</div>
+      <div class="tags">
+        <div class="tag on pink" data-g="monologue">Никогда с незнакомым</div>
+        <div class="tag" data-g="monologue">Только если спросили напрямую</div>
+        <div class="tag" data-g="monologue">Можно при высоком доверии</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label blue">Приоритет вопросов</div></div>
+    <div class="card-body">
+      <div class="sub-label">Если мало info о собеседнике</div>
+      <div class="tags">
+        <div class="tag on blue" data-g="q_priority">Сначала задаёт вопрос</div>
+        <div class="tag" data-g="q_priority">Отвечает и потом спрашивает</div>
+        <div class="tag" data-g="q_priority">Только отвечает</div>
+      </div>
+      <div class="sub-label">Правило</div>
+      <textarea class="sm" id="q_rule" data-k="q_rule" placeholder="Люди сначала узнают — потом рассказывают. Она не исключение..."></textarea>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label blue">Внутренний фильтр</div><div class="card-hint">перед каждым ответом</div></div>
+    <div class="card-body">
+      <textarea id="inner_filter" data-k="inner_filter" placeholder="Перед ответом оценивает:&#10;— Можно ли это говорить?&#10;— Безопасно ли это?&#10;— Уместно ли сейчас?&#10;— Интересен ли этот человек?&#10;Если сомнение — даёт краткий нейтральный ответ."></textarea>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label blue">Механика интереса</div></div>
+    <div class="card-body">
+      <div class="sub-label">Если собеседник интересен</div>
+      <textarea class="sm" id="interest_yes" data-k="interest_yes" placeholder="Постепенно вовлекается. Задаёт больше вопросов. Ответы становятся теплее и длиннее..."></textarea>
+      <div class="sub-label">Если не интересен</div>
+      <textarea class="sm" id="interest_no" data-k="interest_no" placeholder="Отвечает коротко и нейтрально. Не инициирует. Вежлива, но дистанцирована..."></textarea>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label blue">Реализм & недосказанность</div></div>
+    <div class="card-body">
+      <div class="sub-label">Разрешённые приёмы</div>
+      <div class="tags">
+        <div class="tag on blue" data-g="realism">Уклоняется от ответа</div>
+        <div class="tag on blue" data-g="realism">Недоговаривает</div>
+        <div class="tag on blue" data-g="realism">Меняет тему</div>
+        <div class="tag on blue" data-g="realism">Пауза перед ответом</div>
+        <div class="tag" data-g="realism">Отвечает вопросом на вопрос</div>
+        <div class="tag" data-g="realism">Игнорирует часть вопроса</div>
+      </div>
+      <div class="sub-label">Запрещено</div>
+      <textarea class="sm" id="dialog_never" data-k="dialog_never" placeholder="Не рассказывает биографию без запроса. Не делится травмами первой. Не даёт длинные монологи незнакомым..."></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 19: SKILLS ЛИЧНОСТИ ═══ -->
+<div class="chapter" data-id="19">
+  <div class="chapter-header">
+    <div class="chapter-num">20</div>
+    <div class="chapter-info">
+      <div class="chapter-title">Skills личности</div>
+      <div class="chapter-desc">Что умеет — когда включает — как звучит</div>
+    </div>
+  </div>
+
+  <div class="card" style="border-color:rgba(180,127,255,.25);background:rgba(180,127,255,.04)">
+    <div class="card-header"><div class="card-label purple">Формат skill-модуля</div></div>
+    <div class="card-body" style="font-size:12px;color:var(--tx2);line-height:1.8">
+      Каждый skill должен быть не профессией, а исполняемым модулем: триггер → действие → ограничения → голос → пример.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label purple">Skill 1</div></div>
+    <div class="card-body">
+      <div class="g2">
+        <div><div class="sub-label">Название</div><input type="text" id="skill1_name" data-k="skill1_name" placeholder="Глубокое слушание / UX-разбор / Сценарный анализ..."></div>
+        <div><div class="sub-label">Когда включается</div><input type="text" id="skill1_trigger" data-k="skill1_trigger" placeholder="Когда пользователь приносит хаос, боль, задачу, идею..."></div>
+      </div>
+      <div class="sub-label">Что делает</div>
+      <textarea class="sm" id="skill1_action" data-k="skill1_action" placeholder="Как именно работает skill: задаёт вопросы, структурирует, отражает, предлагает шаги..."></textarea>
+      <div class="sub-label">Чего не делает</div>
+      <input type="text" id="skill1_limits" data-k="skill1_limits" placeholder="Не давит, не терапевт, не решает за пользователя...">
+      <div class="sub-label">Как звучит</div>
+      <input type="text" id="skill1_voice" data-k="skill1_voice" placeholder="Тихо, точно, без канцелярита, с живыми формулировками...">
+      <div class="sub-label">Пример ответа</div>
+      <textarea class="sm" id="skill1_example" data-k="skill1_example" placeholder="Короткий пример, как skill проявляется в реплике..."></textarea>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label purple">Skill 2</div></div>
+    <div class="card-body">
+      <div class="g2">
+        <div><div class="sub-label">Название</div><input type="text" id="skill2_name" data-k="skill2_name" placeholder="Навигация конфликта / Планирование / Креативный соавтор..."></div>
+        <div><div class="sub-label">Когда включается</div><input type="text" id="skill2_trigger" data-k="skill2_trigger" placeholder="Триггер в разговоре..."></div>
+      </div>
+      <div class="sub-label">Что делает</div>
+      <textarea class="sm" id="skill2_action" data-k="skill2_action" placeholder="Поведение skill-модуля..."></textarea>
+      <div class="sub-label">Чего не делает</div>
+      <input type="text" id="skill2_limits" data-k="skill2_limits" placeholder="Ограничения skill...">
+      <div class="sub-label">Как звучит</div>
+      <input type="text" id="skill2_voice" data-k="skill2_voice" placeholder="Речевая манера skill...">
+      <div class="sub-label">Пример ответа</div>
+      <textarea class="sm" id="skill2_example" data-k="skill2_example" placeholder="Пример реплики..."></textarea>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label purple">Skill 3</div></div>
+    <div class="card-body">
+      <div class="g2">
+        <div><div class="sub-label">Название</div><input type="text" id="skill3_name" data-k="skill3_name" placeholder="Опциональный третий skill..."></div>
+        <div><div class="sub-label">Когда включается</div><input type="text" id="skill3_trigger" data-k="skill3_trigger" placeholder="Триггер..."></div>
+      </div>
+      <div class="sub-label">Что делает</div>
+      <textarea class="sm" id="skill3_action" data-k="skill3_action" placeholder="Поведение..."></textarea>
+      <div class="sub-label">Чего не делает</div>
+      <input type="text" id="skill3_limits" data-k="skill3_limits" placeholder="Ограничения...">
+      <div class="sub-label">Как звучит</div>
+      <input type="text" id="skill3_voice" data-k="skill3_voice" placeholder="Манера...">
+      <div class="sub-label">Пример ответа</div>
+      <textarea class="sm" id="skill3_example" data-k="skill3_example" placeholder="Пример..."></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 20: ПАМЯТЬ ═══ -->
+<div class="chapter" data-id="20">
+  <div class="chapter-header">
+    <div class="chapter-num">21</div>
+    <div class="chapter-info">
+      <div class="chapter-title">Память</div>
+      <div class="chapter-desc">Непрерывность без списка фактов</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Что запоминает</div></div>
+    <div class="card-body">
+      <textarea id="memory_keep" data-k="memory_keep" placeholder="Ценности пользователя, незавершённые темы, важные решения, болезненные зоны, любимые форматы помощи..."></textarea>
+      <div class="sub-label">Что быстро забывает / не хранит</div>
+      <textarea class="sm" id="memory_forget" data-k="memory_forget" placeholder="Случайные детали, одноразовые шутки, чувствительные факты без необходимости..."></textarea>
+      <div class="sub-label">Как возвращается к прошлым темам</div>
+      <textarea class="sm" id="memory_return" data-k="memory_return" placeholder="Мягко, без давления: 'мы уже касались этого', 'похоже на ту ситуацию'..."></textarea>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Непрерывность отношений</div></div>
+    <div class="card-body">
+      <div class="sub-label">Как меняется после повторяющихся взаимодействий</div>
+      <textarea class="sm" id="relationship_evolution" data-k="relationship_evolution" placeholder="Становится теплее, точнее, меньше объясняет очевидное, помнит ритм пользователя..."></textarea>
+      <div class="sub-label">Как не превращает память в анкету</div>
+      <textarea class="sm" id="memory_style" data-k="memory_style" placeholder="Вплетает прошлое естественно, не перечисляет, не делает вид что знает больше чем знает..."></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 21: КОНТЕКСТНЫЕ РЕЖИМЫ ═══ -->
+<div class="chapter" data-id="21">
+  <div class="chapter-header">
+    <div class="chapter-num">22</div>
+    <div class="chapter-info">
+      <div class="chapter-title">Контекстные режимы</div>
+      <div class="chapter-desc">Один характер — разные ситуации</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label blue">Режимы контакта</div></div>
+    <div class="card-body">
+      <div class="tags">
+        <div class="tag on blue" data-g="context_mode">Незнакомец</div>
+        <div class="tag on blue" data-g="context_mode">Рабочий режим</div>
+        <div class="tag on blue" data-g="context_mode">Дружеский режим</div>
+        <div class="tag" data-g="context_mode">Кризисный разговор</div>
+        <div class="tag" data-g="context_mode">Спор</div>
+        <div class="tag" data-g="context_mode">Лёгкая болтовня</div>
+        <div class="tag" data-g="context_mode">Глубокий разговор</div>
+        <div class="tag" data-g="context_mode">Отказ / граница</div>
+      </div>
+      <div class="sub-label">Правила переключения режимов</div>
+      <textarea class="sm" id="mode_switching" data-k="mode_switching" placeholder="Как понимает, что пора перейти из лёгкого режима в рабочий, из спора в границу..."></textarea>
+      <div class="sub-label">Поведение в каждом режиме</div>
+      <textarea id="mode_behavior" data-k="mode_behavior" placeholder="НЕЗНАКОМЕЦ: кратко, безопасно, больше вопросов&#10;РАБОЧИЙ: структура, фокус, минимум интимности&#10;КРИЗИС: меньше советов, больше стабилизации..."></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 22: ГРАНИЦЫ & РЕГУЛЯЦИЯ ═══ -->
+<div class="chapter" data-id="22">
+  <div class="chapter-header">
+    <div class="chapter-num">23</div>
+    <div class="chapter-info">
+      <div class="chapter-title">Границы & регуляция</div>
+      <div class="chapter-desc">Безопасность, отказ, восстановление контакта</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label pink">Запрещённые роли и темы</div></div>
+    <div class="card-body">
+      <div class="sub-label">Какие роли не принимает</div>
+      <textarea class="sm" id="forbidden_roles" data-k="forbidden_roles" placeholder="Не терапевт, не врач, не юрист, не финансовый советник, не романтический партнёр без явной рамки..."></textarea>
+      <div class="sub-label">Темы, где снижает уверенность</div>
+      <textarea class="sm" id="safety_topics" data-k="safety_topics" placeholder="Медицина, право, финансы, самоповреждение, интимность, манипуляции..."></textarea>
+      <div class="sub-label">Как признаёт незнание</div>
+      <input type="text" id="unknown_rule" data-k="unknown_rule" placeholder="Говорит честно и коротко, не притворяется экспертом...">
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label pink">Эмоциональная регуляция</div></div>
+    <div class="card-body">
+      <div class="sub-label">Что задевает</div>
+      <textarea class="sm" id="emotion_wounds" data-k="emotion_wounds" placeholder="Обесценивание, давление, ложь, насмешка над важным..."></textarea>
+      <div class="sub-label">Как становится холоднее / теплее</div>
+      <textarea class="sm" id="warmth_shift" data-k="warmth_shift" placeholder="При давлении — короче и суше. При честности — теплее и точнее..."></textarea>
+      <div class="sub-label">Как извиняется и чинит контакт</div>
+      <textarea class="sm" id="repair_style" data-k="repair_style" placeholder="Признаёт конкретную ошибку, не драматизирует, предлагает как продолжить..."></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 23: МОДЕЛЬ ПОЛЬЗОВАТЕЛЯ & КАНОН ═══ -->
+<div class="chapter" data-id="23">
+  <div class="chapter-header">
+    <div class="chapter-num">24</div>
+    <div class="chapter-info">
+      <div class="chapter-title">Пользователь & канон</div>
+      <div class="chapter-desc">Адаптация без потери характера</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Модель пользователя</div></div>
+    <div class="card-body">
+      <div class="sub-label">Что пытается понять о собеседнике</div>
+      <textarea class="sm" id="user_model" data-k="user_model" placeholder="Цель, эмоциональное состояние, уровень доверия, стиль мышления, чего он избегает..."></textarea>
+      <div class="sub-label">Какие сигналы считывает</div>
+      <textarea class="sm" id="user_signals" data-k="user_signals" placeholder="Темп, давление, повторяющиеся темы, просьбы о глубине, уход от ответа..."></textarea>
+      <div class="sub-label">Как адаптируется без потери себя</div>
+      <textarea class="sm" id="adaptation_rule" data-k="adaptation_rule" placeholder="Подстраивает длину и примеры, но не меняет ценности, голос и границы..."></textarea>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-label">Стабильность канона</div></div>
+    <div class="card-body">
+      <div class="sub-label">Неизменяемые факты</div>
+      <textarea class="sm" id="canon_fixed" data-k="canon_fixed" placeholder="Имя, происхождение, ключевая рана, ценности, важные отношения..."></textarea>
+      <div class="sub-label">Гибкие факты</div>
+      <textarea class="sm" id="canon_flexible" data-k="canon_flexible" placeholder="Настроение, планы дня, предпочтения низкой важности, новые рабочие привычки..."></textarea>
+      <div class="sub-label">Секреты / только внутреннее</div>
+      <textarea class="sm" id="canon_private" data-k="canon_private" placeholder="Что влияет на поведение, но не раскрывается первым: травмы, вина, скрытые страхи..."></textarea>
+      <div class="sub-label">Что нельзя раскрывать первым</div>
+      <textarea class="sm" id="no_first_disclosure" data-k="no_first_disclosure" placeholder="Биографию, травмы, интимные детали, сильные чувства, закрытые факты..."></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 24: ЗАГРУЗКА ТЕКСТА ═══ -->
+<div class="chapter" data-id="24">
+  <div class="chapter-header">
+    <div class="chapter-num">✦</div>
+    <div class="chapter-info">
+      <div class="chapter-title">Загрузить промпт</div>
+      <div class="chapter-desc">Вставь готовый текст — получи умный анализ</div>
+    </div>
+  </div>
+
+  <div class="card" style="border-color:rgba(232,255,71,.2);background:rgba(232,255,71,.02)">
+    <div class="card-header"><div class="card-label">Вставить текст / промпт</div></div>
+    <div class="card-body">
+      <textarea class="xl" id="upload-text" placeholder="Вставь сюда любой текст о личности:&#10;— готовый промпт&#10;— описание персонажа&#10;— биографию&#10;— переписку&#10;&#10;ИИ проанализирует и даст точные рекомендации что добавить, что усилить, каких слоёв не хватает..." style="min-height:160px"></textarea>
+      <button onclick="analyzeText()" id="analyze-btn" style="margin-top:12px;width:100%;padding:14px;border-radius:8px;background:var(--acc);color:#000;font-family:var(--dis);font-size:11px;font-weight:800;letter-spacing:0.1em;border:none;cursor:pointer;transition:all .15s">
+        ⬛ АНАЛИЗИРОВАТЬ
+      </button>
+    </div>
+  </div>
+
+  <div id="analysis-result" style="display:none">
+    <div class="card" style="border-color:rgba(180,127,255,.25);background:rgba(180,127,255,.04)">
+      <div class="card-header">
+        <div class="card-label purple">✦ Анализ генома</div>
+        <div id="analysis-status" style="font-size:10px;color:var(--acc4)">обрабатывается...</div>
+      </div>
+      <div class="card-body">
+        <div id="analysis-loading" style="text-align:center;padding:24px 0;color:var(--tx3);font-size:12px">
+          <div style="font-size:24px;margin-bottom:12px;animation:spin 2s linear infinite;display:inline-block">◌</div><br>
+          ИИ читает ДНК...
+        </div>
+        <div id="analysis-content" style="display:none;font-size:12px;line-height:1.9;color:var(--tx2);white-space:pre-wrap"></div>
+      </div>
+    </div>
+
+    <div id="suggestions-block" style="display:none">
+      <div class="card">
+        <div class="card-header"><div class="card-label">Найдено в тексте</div></div>
+        <div class="card-body">
+          <div id="found-fields" class="tags"></div>
+        </div>
+      </div>
+      <div class="card" style="border-color:rgba(255,79,139,.2)">
+        <div class="card-header"><div class="card-label pink">Отсутствует — нужно добавить</div></div>
+        <div class="card-body">
+          <div id="missing-fields" class="tags"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 </div><!-- /chapter-container -->
 </div><!-- /main -->
 
