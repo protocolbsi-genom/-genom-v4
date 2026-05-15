@@ -8,7 +8,7 @@ export const CHAPTERS = [
   { id: 6, icon: '◎', label: 'Люди' },
   { id: 7, icon: '▲', label: 'Хобби' },
   { id: 8, icon: '♪', label: 'Культура' },
-  { id: 9, icon: '❋', label: 'Еда & Быт' },
+  { id: 9, icon: '❋', label: 'Еда и Быт' },
   { id: 10, icon: '✈', label: 'Путешествия' },
   { id: 11, icon: '◇', label: 'Ценности' },
   { id: 12, icon: '⬡', label: 'Мышление' },
