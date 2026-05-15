@@ -1,7 +1,7 @@
 import { CHAPTERS, SINGLE_TAG_GROUPS, CHAPTER_KEYS } from '../data/chapters.js';
 import { DEFAULTS, DEFAULT_TAGS } from '../data/defaults.js';
 import { collectData, updateIntegrity, buildAndShow, pb, updateOrient } from './genome.js';
-import { saveCurrentPersona, loadPersona, deletePersona, renderPersonaLibrary } from './storage.js';
+
 
 let cur = 0;
 
@@ -101,19 +101,15 @@ function injectChapterTools() {
 }
 
 export function showHomePage() {
-  document.getElementById('library-page').classList.remove('open');
-  document.getElementById('home-page').classList.add('open');
+  window.showLanding();
 }
 
 export function showLibraryPage() {
-  renderPersonaLibrary();
-  document.getElementById('home-page').classList.remove('open');
-  document.getElementById('library-page').classList.add('open');
+  window.showDashboard();
 }
 
 export function hidePages() {
-  document.getElementById('home-page').classList.remove('open');
-  document.getElementById('library-page').classList.remove('open');
+  // no-op, old page system
 }
 
 export function closeModal() {
@@ -171,5 +167,5 @@ export function fillAllFromAnna() {
   updateOrient(10);
   collectData();
   updateIntegrity();
-  hidePages();
+  window.goToGenome();
 }

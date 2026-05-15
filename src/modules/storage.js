@@ -20,9 +20,13 @@ function escapeHtml(s) {
     ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' })[m]);
 }
 
-function hidePages() {
-  document.getElementById('home-page').classList.remove('open');
-  document.getElementById('library-page').classList.remove('open');
+function goToGenome() {
+  document.getElementById('page-genome').style.display = 'block';
+  document.querySelectorAll('.surface-page').forEach(p => {
+    if (p.id !== 'page-genome') p.style.display = 'none';
+  });
+  document.getElementById('btn-cabinet').style.display = 'flex';
+  document.getElementById('integrity-pill').style.display = 'flex';
 }
 
 export async function saveCurrentPersona() {
@@ -82,7 +86,7 @@ export function loadPersona(id) {
   });
   collectData();
   updateIntegrity();
-  hidePages();
+  goToGenome();
   window.goTo(0);
 }
 

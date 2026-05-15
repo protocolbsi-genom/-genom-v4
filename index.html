@@ -11,80 +11,126 @@
 
 <!-- TOP BAR -->
 <div class="top-bar">
-  <div class="top-logo" onclick="showHomePage()" style="cursor:pointer">ГЕНОМ <span>v4</span></div>
-  <div class="top-actions">
-    <div class="integrity-pill">
+  <div class="top-logo" onclick="showLanding()" style="cursor:pointer">ГЕНОМ <span>v4</span></div>
+  <div class="top-actions" id="top-actions">
+    <div class="integrity-pill" id="integrity-pill" style="display:none">
       <div class="integrity-dot" id="i-dot"></div>
       <span id="i-pct">0%</span>
     </div>
-    <button class="top-btn copy" onclick="showLibraryPage()">ЛИЧНОСТИ</button>
-    <button class="top-btn copy" onclick="saveCurrentPersona()">SAVE</button>
-    <button class="top-btn copy" id="btn-login" onclick="showLoginModal()" style="display:flex">ВОЙТИ</button>
-    <button class="top-btn gen" onclick="buildAndShow()">⬛ ДНК</button>
+    <button class="top-btn copy" id="btn-cabinet" onclick="showDashboard()" style="display:none">КАБИНЕТ</button>
+    <button class="top-btn copy" id="btn-login" onclick="showLanding()">ВОЙТИ</button>
   </div>
 </div>
 
-<!-- PROJECT HOME -->
-<div class="surface-page" id="home-page">
-  <div class="surface-inner">
-    <div class="surface-hero">
-      <div class="surface-kicker">PERSONALITY GENOME v4</div>
-      <div class="surface-title">Генератор живых цифровых личностей</div>
-      <div class="surface-text">
-        Заполняешь слои генома — получаешь детальный системный промпт для обычного отдельного чата.
-        Задача не в том, чтобы описать персонажа как анкету, а чтобы чат говорил, раскрывался,
-        держал границы, включал навыки и сохранял манеру как цельная личность.
+<!-- LANDING PAGE (public) -->
+<div class="surface-page open" id="page-landing">
+  <div class="landing-hero">
+    <div class="landing-bg"></div>
+    <div class="landing-content">
+      <div class="landing-badge">PERSONALITY GENOME v4</div>
+      <h1 class="landing-title">Создай<br><span class="glow">живую личность</span></h1>
+      <p class="landing-sub">25 слоёв генома → системный промпт для чата.<br>Не анкета — операционная система поведения.</p>
+      <div class="landing-actions">
+        <button class="landing-btn primary" onclick="scrollToFeatures()">УЗНАТЬ БОЛЬШЕ</button>
+        <button class="landing-btn secondary" onclick="showLandingAuth()">НАЧАТЬ →</button>
       </div>
-      <div class="page-actions">
-        <button class="mini-btn primary" onclick="hidePages()">ПЕРЕЙТИ К ГЕНОМУ</button>
-        <button class="mini-btn" onclick="fillAllFromAnna()">ЗАПОЛНИТЬ АННОЙ</button>
-        <button class="mini-btn" onclick="showLibraryPage()">ОТКРЫТЬ ЛИЧНОСТИ</button>
+    </div>
+  </div>
+
+  <div class="landing-features" id="features">
+    <div class="landing-feature-card">
+      <div class="lf-icon">✦</div>
+      <div class="lf-title">25 слоёв</div>
+      <div class="lf-desc">От ядра до канона — каждый аспект личности</div>
+    </div>
+    <div class="landing-feature-card">
+      <div class="lf-icon" style="color:var(--acc3)">◈</div>
+      <div class="lf-title">AI-анализ</div>
+      <div class="lf-desc">ИИ оценит полноту профиля и укажет пробелы</div>
+    </div>
+    <div class="landing-feature-card">
+      <div class="lf-icon" style="color:var(--acc2)">⬡</div>
+      <div class="lf-title">Облачное хранение</div>
+      <div class="lf-desc">Все личности сохраняются в твоём кабинете</div>
+    </div>
+    <div class="landing-feature-card">
+      <div class="lf-icon" style="color:var(--acc4)">◎</div>
+      <div class="lf-title">Anti-dump rule</div>
+      <div class="lf-desc">Персона раскрывается постепенно, как человек</div>
+    </div>
+  </div>
+
+  <div class="landing-cta">
+    <h2>Готов создать личность?</h2>
+    <p>Зарегистрируйся и получи доступ к полному геному</p>
+    <button class="landing-btn primary" onclick="showLandingAuth()">СОЗДАТЬ АККАУНТ</button>
+  </div>
+</div>
+
+<!-- AUTH PAGE -->
+<div class="surface-page" id="page-auth" style="display:none">
+  <div class="surface-inner" style="max-width:400px;margin:60px auto">
+    <div class="auth-box">
+      <div class="auth-title">Вход</div>
+      <div id="auth-error" style="color:var(--acc2);font-size:12px;margin-bottom:12px;display:none"></div>
+      <div id="auth-success" style="color:var(--acc);font-size:12px;margin-bottom:12px;display:none"></div>
+      <div class="sub-label">Email</div>
+      <input type="email" id="auth-email" placeholder="your@email.com">
+      <div class="sub-label">Пароль</div>
+      <input type="password" id="auth-pass" placeholder="от 6 символов">
+      <button class="landing-btn primary" id="auth-btn" onclick="handleAuth()" style="width:100%;margin-top:16px">ВОЙТИ</button>
+      <div class="auth-switch">
+        <span id="auth-toggle-text">Нет аккаунта?</span>
+        <button class="mini-btn" id="auth-toggle-btn" onclick="toggleAuthMode()" style="margin-left:8px">РЕГИСТРАЦИЯ</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD (logged in) -->
+<div class="surface-page" id="page-dashboard" style="display:none">
+  <div class="surface-inner" style="max-width:800px">
+    <div class="surface-hero">
+      <div class="surface-kicker">DASHBOARD</div>
+      <div class="surface-title">Личный кабинет</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-label">Профиль</div></div>
+      <div class="card-body">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div><span style="color:var(--tx2)">Email:</span> <span id="dash-email" style="color:var(--tx)"></span></div>
+          <button class="mini-btn pink" onclick="handleLogout()">ВЫЙТИ</button>
+        </div>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-header"><div class="card-label">Как пользоваться</div></div>
-      <div class="card-body" style="font-size:12px;color:var(--tx2);line-height:1.9">
-        1. Заполни ядро, голос, динамику общения и v4-модули.<br>
-        2. Если не хочется писать с нуля — нажимай кнопку "АННА" в нужном разделе и переписывай пример под новую личность.<br>
-        3. Нажми "ДНК", скопируй промпт и вставь его в новый чат как системное описание личности.<br>
-        4. Сохраняй разные личности через "SAVE" и загружай их на странице "ЛИЧНОСТИ".
+      <div class="card-header"><div class="card-label">Статус системы</div></div>
+      <div class="card-body">
+        <div style="display:flex;gap:16px;flex-wrap:wrap">
+          <div class="status-badge" id="db-status"><span class="status-dot"></span> База данных: проверка...</div>
+        </div>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-header"><div class="card-label blue">Что делает v4 реалистичным</div></div>
-      <div class="card-body" style="font-size:12px;color:var(--tx2);line-height:1.9">
-        Главные блоки реализма: социальная динамика, anti-dump правило, skills по триггерам,
-        память, контекстные режимы, границы, модель пользователя и стабильность канона.
-        Если эти поля заполнены конкретно, личность уже достаточно полная для отдельного чата.
+      <div class="card-header"><div class="card-label">Мои личности</div></div>
+      <div class="card-body">
+        <div class="persona-list" id="dash-persona-list"></div>
+        <button class="mini-btn primary" onclick="goToGenome()" style="margin-top:12px">+ НОВАЯ ЛИЧНОСТЬ</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- PERSONALITY LIBRARY -->
-<div class="surface-page" id="library-page">
-  <div class="surface-inner">
-    <div class="surface-hero">
-      <div class="surface-kicker">PERSONA LIBRARY</div>
-      <div class="surface-title">Сохранённые личности</div>
-      <div class="surface-text">Локальная библиотека в этом браузере. Можно сохранить текущий геном, загрузить старый или удалить лишний.</div>
-      <div class="page-actions">
-        <button class="mini-btn primary" onclick="saveCurrentPersona()">СОХРАНИТЬ ТЕКУЩУЮ</button>
-        <button class="mini-btn" onclick="hidePages()">НАЗАД К ГЕНОМУ</button>
-      </div>
-    </div>
-    <div class="persona-list" id="persona-list"></div>
-  </div>
-</div>
-
-<!-- CHAPTER TABS -->
-<div class="chapters" id="chapters"></div>
-
-<!-- MAIN -->
-<div class="main">
-<div id="chapter-container">
+<!-- GENOME (logged in) -->
+<div class="surface-page" id="page-genome" style="display:none">
+  <!-- CHAPTER TABS -->
+  <div class="chapters" id="chapters"></div>
+  <!-- CHAPTERS CONTENT -->
+  <div class="main">
+  <div id="chapter-container">
 
 <!-- ═══ 0: ЯДРО ═══ -->
 <div class="chapter active" data-id="0">
@@ -1414,6 +1460,8 @@
   <button class="nav-next" id="btn-next" onclick="navSection(1)">Далее →</button>
 </div>
 
+</div><!-- /page-genome -->
+
 <!-- OUTPUT MODAL -->
 <div class="modal" id="modal">
   <div class="modal-box">
@@ -1427,27 +1475,6 @@
     <div class="modal-footer">
       <button class="modal-copy" onclick="copyGenome()">СКОПИРОВАТЬ ДНК</button>
       <button class="modal-copy secondary" onclick="saveCurrentPersona()">СОХРАНИТЬ</button>
-    </div>
-  </div>
-</div>
-
-<!-- LOGIN MODAL -->
-<div class="modal" id="login-modal">
-  <div class="modal-box" style="max-width:380px;margin:auto">
-    <div class="modal-header">
-      <div class="modal-title">Вход / Регистрация</div>
-      <div class="modal-close" onclick="closeLoginModal()">✕</div>
-    </div>
-    <div class="modal-body">
-      <div id="login-error" style="color:var(--acc2);font-size:11px;margin-bottom:8px;display:none"></div>
-      <div class="sub-label">Email</div>
-      <input type="email" id="login-email" placeholder="your@email.com">
-      <div class="sub-label">Пароль</div>
-      <input type="password" id="login-password" placeholder="от 6 символов">
-      <div style="display:flex;gap:8px;margin-top:16px">
-        <button class="modal-copy secondary" onclick="apiLogin()">ВОЙТИ</button>
-        <button class="modal-copy" onclick="apiRegister()">РЕГИСТРАЦИЯ</button>
-      </div>
     </div>
   </div>
 </div>
