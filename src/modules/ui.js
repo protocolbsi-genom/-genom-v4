@@ -25,7 +25,11 @@ function buildTabs() {
     t.className = 'ch-tab' + (i === 0 ? ' active' : '');
     t.dataset.id = i;
     t.innerHTML = `<div class="ch-dot"></div>${c.icon} ${c.label}`;
-    t.onclick = () => goTo(i);
+    if (i === 24) {
+      t.onclick = () => showPreview();
+    } else {
+      t.onclick = () => goTo(i);
+    }
     if (i === 24) {
       t.className += ' ch25-inline';
       if (statsEl) statsEl.appendChild(t);
@@ -81,6 +85,15 @@ export function goTo(idx) {
 }
 
 export function navSection(dir) { goTo(cur + dir); }
+
+export function showPreview() {
+  const chs = document.querySelectorAll('.chapter');
+  if (chs[cur]) chs[cur].classList.remove('active');
+  if (chs[24]) chs[24].classList.add('active');
+  cur = 24;
+  document.querySelector('.main-scroll')?.scrollTo(0, 0);
+  window.scrollTo(0, 0);
+}
 
 function updateNav() {
   const total = MAIN_COUNT;
