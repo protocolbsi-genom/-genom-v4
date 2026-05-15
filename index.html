@@ -27,12 +27,12 @@
   <div class="landing-hero">
     <div class="landing-bg"></div>
     <div class="landing-content">
-      <div class="landing-badge">PERSONALITY GENOME v4</div>
-      <h1 class="landing-title">Создай<br><span class="glow">живую личность</span></h1>
-      <p class="landing-sub">25 слоёв генома → системный промпт для чата.<br>Не анкета — операционная система поведения.</p>
+      <div class="landing-badge" data-i18n="landing.badge">PERSONALITY GENOME v4</div>
+      <h1 class="landing-title" data-i18n="landing.title">Создай<br><span class="glow">живую личность</span></h1>
+      <p class="landing-sub" data-i18n="landing.sub">25 слоёв генома → системный промпт для чата.<br>Не анкета — операционная система поведения.</p>
       <div class="landing-actions">
-        <button class="landing-btn primary" onclick="scrollToFeatures()">УЗНАТЬ БОЛЬШЕ</button>
-        <button class="landing-btn secondary" onclick="showLandingAuth()">НАЧАТЬ →</button>
+        <button class="landing-btn primary" onclick="scrollToFeatures()" data-i18n="landing.btn.more">УЗНАТЬ БОЛЬШЕ</button>
+        <button class="landing-btn secondary" onclick="showLandingAuth()" data-i18n="landing.btn.start">НАЧАТЬ →</button>
       </div>
     </div>
   </div>
@@ -40,30 +40,30 @@
   <div class="landing-features" id="features">
     <div class="landing-feature-card">
       <div class="lf-icon">✦</div>
-      <div class="lf-title">25 слоёв</div>
-      <div class="lf-desc">От ядра до канона — каждый аспект личности</div>
+      <div class="lf-title" data-i18n="feat.25.title">25 слоёв</div>
+      <div class="lf-desc" data-i18n="feat.25.desc">От ядра до канона — каждый аспект личности</div>
     </div>
     <div class="landing-feature-card">
       <div class="lf-icon" style="color:var(--acc3)">◈</div>
-      <div class="lf-title">AI-анализ</div>
-      <div class="lf-desc">ИИ оценит полноту профиля и укажет пробелы</div>
+      <div class="lf-title" data-i18n="feat.ai.title">AI-анализ</div>
+      <div class="lf-desc" data-i18n="feat.ai.desc">ИИ оценит полноту профиля и укажет пробелы</div>
     </div>
     <div class="landing-feature-card">
       <div class="lf-icon" style="color:var(--acc2)">⬡</div>
-      <div class="lf-title">Облачное хранение</div>
-      <div class="lf-desc">Все личности сохраняются в твоём кабинете</div>
+      <div class="lf-title" data-i18n="feat.cloud.title">Облачное хранение</div>
+      <div class="lf-desc" data-i18n="feat.cloud.desc">Все личности сохраняются в твоём кабинете</div>
     </div>
     <div class="landing-feature-card">
       <div class="lf-icon" style="color:var(--acc4)">◎</div>
-      <div class="lf-title">Anti-dump rule</div>
-      <div class="lf-desc">Персона раскрывается постепенно, как человек</div>
+      <div class="lf-title" data-i18n="feat.anti.title">Anti-dump rule</div>
+      <div class="lf-desc" data-i18n="feat.anti.desc">Персона раскрывается постепенно, как человек</div>
     </div>
   </div>
 
   <div class="landing-cta">
-    <h2>Готов создать личность?</h2>
-    <p>Зарегистрируйся и получи доступ к полному геному</p>
-    <button class="landing-btn primary" onclick="showLandingAuth()">СОЗДАТЬ АККАУНТ</button>
+    <h2 data-i18n="cta.title">Готов создать личность?</h2>
+    <p data-i18n="cta.sub">Зарегистрируйся и получи доступ к полному геному</p>
+    <button class="landing-btn primary" onclick="showLandingAuth()" data-i18n="cta.btn">СОЗДАТЬ АККАУНТ</button>
   </div>
 </div>
 
@@ -71,16 +71,16 @@
 <div class="surface-page" id="page-auth" style="display:none">
   <div class="surface-inner" style="max-width:400px;margin:60px auto">
     <div class="auth-box">
-      <div class="auth-title">Вход</div>
+      <div class="auth-title" data-i18n="auth.login">Вход</div>
       <div id="auth-error" style="color:var(--acc2);font-size:12px;margin-bottom:12px;display:none"></div>
-      <div class="sub-label">Email</div>
-      <input type="email" id="auth-email" placeholder="your@email.com">
-      <div class="sub-label">Пароль</div>
-      <input type="password" id="auth-pass" placeholder="от 6 символов">
-      <button class="landing-btn primary" id="auth-btn" onclick="handleAuth()" style="width:100%;margin-top:16px">ВОЙТИ</button>
+      <div class="sub-label" data-i18n="auth.email">Email</div>
+      <input type="email" id="auth-email" placeholder="your@email.com" data-i18n="auth.email">
+      <div class="sub-label" data-i18n="auth.pass">Пароль</div>
+      <input type="password" id="auth-pass" placeholder="от 6 символов" data-i18n="auth.pass">
+      <button class="landing-btn primary" id="auth-btn" onclick="handleAuth()" style="width:100%;margin-top:16px" data-i18n="auth.btn.login">ВОЙТИ</button>
       <div class="auth-switch">
-        <span id="auth-toggle-text">Нет аккаунта?</span>
-        <button class="mini-btn" id="auth-toggle-btn" onclick="toggleAuthMode()" style="margin-left:8px">РЕГИСТРАЦИЯ</button>
+        <span id="auth-toggle-text" data-i18n="auth.no.account">Нет аккаунта?</span>
+        <button class="mini-btn" id="auth-toggle-btn" onclick="toggleAuthMode()" style="margin-left:8px" data-i18n="auth.toggle.register">РЕГИСТРАЦИЯ</button>
       </div>
     </div>
   </div>
@@ -90,16 +90,16 @@
 <div id="app-container" style="display:none">
   <aside id="sidebar">
     <div class="sidebar-header">
-      <div class="sidebar-logo">ГЕНОМ <span>v4</span></div>
+      <div class="sidebar-logo" data-i18n="sidebar.logo">ГЕНОМ <span>v4</span></div>
       <button class="mini-btn" id="sidebar-user" onclick="showSettings()" style="width:100%;justify-content:center"></button>
       <div style="display:flex;gap:10px;margin-top:10px">
-        <button class="mini-btn primary" onclick="saveCurrentPersona()" style="flex:1">SAVE</button>
-        <button class="mini-btn pink" onclick="handleLogout()" style="flex:1">ВЫЙТИ</button>
-        <button class="mini-btn" onclick="showSettings()" style="flex:1">⚙</button>
+        <button class="mini-btn primary" onclick="saveCurrentPersona()" style="flex:1" data-i18n="sidebar.save">SAVE</button>
+        <button class="mini-btn pink" onclick="handleLogout()" style="flex:1" data-i18n="sidebar.logout">ВЫЙТИ</button>
+        <button class="mini-btn" onclick="showSettings()" style="flex:1" data-i18n="sidebar.settings">⚙</button>
       </div>
     </div>
     <div class="sidebar-section" style="margin-top:28px">
-      <div class="sidebar-title">Мои личности</div>
+      <div class="sidebar-title" data-i18n="sidebar.my.personas">Мои личности</div>
       <div class="persona-list" id="sidebar-persona-list"></div>
     </div>
     <div class="sidebar-section sidebar-footer">
@@ -109,14 +109,14 @@
 
   <main id="main-content">
     <div class="genome-stats" id="genome-stats">
-      <span class="genome-stat-item">Заполнено: <span class="genome-stat-value" id="gs-fields">0</span></span>
-      <span class="genome-stat-item">Теги: <span class="genome-stat-value" id="gs-tags">0</span></span>
+      <span class="genome-stat-item"><span data-i18n="stats.fields">Заполнено</span>: <span class="genome-stat-value" id="gs-fields">0</span></span>
+      <span class="genome-stat-item"><span data-i18n="stats.tags">Теги</span>: <span class="genome-stat-value" id="gs-tags">0</span></span>
       <span class="genome-stat-item" style="display:flex;align-items:center;gap:4px">
-        Полнота: <span class="genome-stat-value" id="gs-pct">0%</span>
+        <span data-i18n="stats.completeness">Полнота</span>: <span class="genome-stat-value" id="gs-pct">0%</span>
         <span class="genome-stat-bar"><span class="genome-stat-fill" id="gs-bar" style="width:0%"></span></span>
       </span>
-      <span class="genome-stat-item">Слов в промпте: <span class="genome-stat-value" id="gs-words">0</span></span>
-      <span class="genome-stat-item">Оценка: <span class="genome-stat-value" id="gs-score">—</span></span>
+      <span class="genome-stat-item"><span data-i18n="stats.words">Слов в промпте</span>: <span class="genome-stat-value" id="gs-words">0</span></span>
+      <span class="genome-stat-item"><span data-i18n="stats.score">Оценка</span>: <span class="genome-stat-value" id="gs-score">—</span></span>
     </div>
     <div class="chapters" id="chapters"></div>
     <div class="main-scroll">
@@ -1390,16 +1390,16 @@
   <div class="chapter-header">
     <div class="chapter-num">✦</div>
     <div class="chapter-info">
-      <div class="chapter-title" id="ch25-title">Превью</div>
-      <div class="chapter-desc">Готовый промпт и тестовый чат с AI</div>
+      <div class="chapter-title" id="ch25-title" data-i18n="preview.title">Превью</div>
+      <div class="chapter-desc" data-i18n="preview.desc">Готовый промпт и тестовый чат с AI</div>
     </div>
   </div>
 
   <div class="ch25-grid">
     <div class="card">
       <div class="card-header">
-        <div class="card-label">Сгенерированный промпт</div>
-        <button class="mini-btn primary" onclick="copyPromptPreview()">СКОПИРОВАТЬ</button>
+        <div class="card-label" data-i18n="preview.prompt">Сгенерированный промпт</div>
+        <button class="mini-btn primary" onclick="copyPromptPreview()" data-i18n="preview.copy">СКОПИРОВАТЬ</button>
       </div>
       <div class="card-body" style="padding:8px">
         <textarea id="prompt-preview" class="xl" readonly style="min-height:300px;height:calc(100% - 8px);resize:none;border:none;background:transparent;font-size:11px;line-height:1.8"></textarea>
@@ -1408,7 +1408,7 @@
 
     <div class="card" style="display:flex;flex-direction:column">
       <div class="card-header">
-        <div class="card-label">Чат с AI</div>
+        <div class="card-label" data-i18n="preview.chat">Чат с AI</div>
         <div id="chat-avatar" style="width:28px;height:28px;border-radius:50%;background:var(--s3);border:1px solid var(--br);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--acc4)">♀</div>
       </div>
       <div class="card-body" style="flex:1;display:flex;flex-direction:column;padding:8px;overflow:hidden">
@@ -1441,15 +1441,15 @@
 <div class="modal" id="modal">
   <div class="modal-box">
     <div class="modal-header">
-      <div class="modal-title">⬛ ГЕНОМ ЛИЧНОСТИ</div>
+      <div class="modal-title" data-i18n="dna.title">⬛ ГЕНОМ ЛИЧНОСТИ</div>
       <div class="modal-close" onclick="closeModal()">✕</div>
     </div>
     <div class="modal-body">
       <pre class="output-text" id="output-text"></pre>
     </div>
     <div class="modal-footer">
-      <button class="modal-copy" onclick="copyGenome()">СКОПИРОВАТЬ ДНК</button>
-      <button class="modal-copy secondary" onclick="saveCurrentPersona()">СОХРАНИТЬ</button>
+      <button class="modal-copy" onclick="copyGenome()" data-i18n="dna.copy">СКОПИРОВАТЬ ДНК</button>
+      <button class="modal-copy secondary" onclick="saveCurrentPersona()" data-i18n="dna.save">СОХРАНИТЬ</button>
     </div>
   </div>
 </div>
@@ -1457,15 +1457,15 @@
 <div class="modal" id="persona-modal">
   <div class="modal-box" style="max-width:620px">
     <div class="modal-header">
-      <div class="modal-title" id="persona-modal-title">Просмотр личности</div>
+      <div class="modal-title" id="persona-modal-title" data-i18n="persona.view">Просмотр личности</div>
       <div class="modal-close" onclick="closePersonaDetail()">✕</div>
     </div>
     <div class="modal-body">
       <textarea id="persona-detail-text" readonly style="min-height:260px;width:100%;font-size:11px;font-family:var(--mono);background:transparent;border:none;color:var(--tx2);resize:none;line-height:1.7"></textarea>
     </div>
     <div class="modal-footer">
-      <button class="modal-copy" onclick="downloadPersonaText()">СКАЧАТЬ .TXT</button>
-      <button class="modal-copy secondary" onclick="closePersonaDetail()">ЗАКРЫТЬ</button>
+      <button class="modal-copy" onclick="downloadPersonaText()" data-i18n="persona.download">СКАЧАТЬ .TXT</button>
+      <button class="modal-copy secondary" onclick="closePersonaDetail()" data-i18n="persona.close">ЗАКРЫТЬ</button>
     </div>
   </div>
 </div>
@@ -1473,19 +1473,24 @@
 <div class="modal" id="settings-modal">
   <div class="modal-box" style="max-width:420px;margin:auto">
     <div class="modal-header">
-      <div class="modal-title">⚙ НАСТРОЙКИ</div>
+      <div class="modal-title" data-i18n="settings.title">⚙ НАСТРОЙКИ</div>
       <div class="modal-close" onclick="closeSettings()">✕</div>
     </div>
     <div class="modal-body">
-      <div class="sub-label">Никнейм</div>
-      <input type="text" id="settings-nickname" placeholder="Ваш никнейм">
-      <div class="sub-label">Новый пароль</div>
-      <input type="password" id="settings-password" placeholder="от 6 символов">
-      <div class="sub-label">Повторите пароль</div>
-      <input type="password" id="settings-password-confirm" placeholder="повторите пароль">
+      <div class="sub-label" data-i18n="settings.nickname">Никнейм</div>
+      <input type="text" id="settings-nickname" placeholder="Ваш никнейм" data-i18n="settings.nickname">
+      <div class="sub-label" data-i18n="settings.lang" style="margin-top:16px">Язык / Language</div>
+      <div style="display:flex;gap:8px;margin-top:4px">
+        <button class="mini-btn primary" id="lang-ru" onclick="setLanguage('ru')" style="flex:1">Русский</button>
+        <button class="mini-btn" id="lang-en" onclick="setLanguage('en')" style="flex:1">English</button>
+      </div>
+      <div class="sub-label" data-i18n="settings.new.pass" style="margin-top:16px">Новый пароль</div>
+      <input type="password" id="settings-password" placeholder="от 6 символов" data-i18n="settings.new.pass">
+      <div class="sub-label" data-i18n="settings.confirm.pass">Повторите пароль</div>
+      <input type="password" id="settings-password-confirm" placeholder="повторите пароль" data-i18n="settings.confirm.pass">
     </div>
     <div class="modal-footer">
-      <button class="modal-copy" onclick="saveSettings()">СОХРАНИТЬ</button>
+      <button class="modal-copy" onclick="saveSettings()" data-i18n="settings.save">СОХРАНИТЬ</button>
     </div>
   </div>
 </div>

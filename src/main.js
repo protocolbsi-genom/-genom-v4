@@ -3,6 +3,7 @@ import { initUI, goTo, navSection, closeModal, copyGenome, setTagGroup,
 import { buildAndShow, pb, updateOrient } from './modules/genome.js';
 import { saveCurrentPersona, loadPersona, deletePersona, renderPersonaLibrary, viewPersona, downloadPersonaText, closePersonaDetail } from './modules/storage.js';
 import { analyzeText } from './modules/analysis.js';
+import { initLanguage, setLanguage, getLang, getLangLabel } from './modules/i18n.js';
 import { copyPromptPreview, sendChatMessage, initPreviewChat, resetChat } from './modules/chat.js?v=1';
 import { login, register, logout, isLoggedIn, getUser } from './modules/api.js';
 
@@ -24,6 +25,11 @@ window.renderPersonaLibrary = renderPersonaLibrary;
 window.viewPersona = viewPersona;
 window.downloadPersonaText = downloadPersonaText;
 window.closePersonaDetail = closePersonaDetail;
+window.setLanguage = (lang) => {
+  setLanguage(lang);
+  document.getElementById('lang-ru')?.classList.toggle('primary', lang === 'ru');
+  document.getElementById('lang-en')?.classList.toggle('primary', lang === 'en');
+};
 window.analyzeText = analyzeText;
 window.copyPromptPreview = copyPromptPreview;
 window.sendChatMessage = sendChatMessage;
@@ -127,6 +133,9 @@ window.showSettings = () => {
   document.getElementById('settings-nickname').value = u?.name || u?.email?.split('@')[0] || '';
   document.getElementById('settings-password').value = '';
   document.getElementById('settings-password-confirm').value = '';
+  const lang = getLang();
+  document.getElementById('lang-ru')?.classList.toggle('primary', lang === 'ru');
+  document.getElementById('lang-en')?.classList.toggle('primary', lang === 'en');
   document.getElementById('settings-modal').classList.add('open');
 };
 window.closeSettings = () => {
@@ -164,5 +173,6 @@ document.getElementById('settings-modal')?.addEventListener('click', function(e)
 
 document.addEventListener('DOMContentLoaded', () => {
   initUI();
+  initLanguage();
   showPage('page-landing');
 });
