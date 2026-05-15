@@ -847,16 +847,13 @@ input[type=range].blue::-webkit-slider-thumb{background:var(--acc3);box-shadow:0
 
 .sidebar-logo {
   font-family: var(--dis);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 800;
   letter-spacing: 0.05em;
   color: var(--tx);
+  margin-bottom: 8px;
 }
 .sidebar-logo span { color: var(--acc); }
-.sidebar-email {
-  font-size: 11px;
-  color: var(--tx3);
-  margin-top: 4px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
