@@ -77,8 +77,6 @@ window.showDashboard = async () => {
   }
 
   await renderPersonaLibrary();
-  const listHtml = document.getElementById('persona-list')?.innerHTML;
-  if (listHtml) document.getElementById('dash-persona-list').innerHTML = listHtml;
   showPage('page-dashboard');
 };
 

@@ -118,7 +118,8 @@ export async function renderPersonaLibrary() {
   } else {
     list = getPersonas();
   }
-  const el = document.getElementById('persona-list');
+  const el = document.getElementById('dash-persona-list');
+  if (!el) return;
   if (!list.length) {
     el.innerHTML = `<div class="card"><div class="card-body" style="font-size:12px;color:var(--tx3);line-height:1.8">Пока нет сохранённых личностей. Заполни геном и нажми SAVE.</div></div>`;
     return;
