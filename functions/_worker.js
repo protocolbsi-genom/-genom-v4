@@ -161,7 +161,7 @@ export default {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}`, 'HTTP-Referer': url.origin },
           body: JSON.stringify({
-            model: 'deepseek/deepseek-chat:free',
+            model: 'deepseek/deepseek-chat',
             messages: [
               { role: 'system', content: 'Analyze the text as a personality profile. Identify present and missing v4 genome layers. Be concise.' },
               { role: 'user', content: text },
@@ -190,7 +190,7 @@ export default {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}`, 'HTTP-Referer': url.origin },
           body: JSON.stringify({
-            model: 'deepseek/deepseek-chat:free',
+            model: 'deepseek/deepseek-chat',
             messages: [
               { role: 'system', content: buildPrompt(g) },
               { role: 'user', content: message },
