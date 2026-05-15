@@ -12,7 +12,7 @@ export function initUI() {
   setupTagListeners();
   setupInputListeners();
   setupModalClose();
-  updateNav();
+  goTo(0);
   updateIntegrity();
 }
 
