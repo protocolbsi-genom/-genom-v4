@@ -57,3 +57,4 @@ build/Release
 
 *.env*
 worker-build/
+_context/
