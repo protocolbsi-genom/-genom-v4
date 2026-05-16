@@ -217,32 +217,19 @@ export default {
         if (!message) return json({ error: 'Message required' }, 400);
 
         const fieldsList = Array.isArray(chapterFields) && chapterFields.length
-          ? chapterFields.map(k => '• ' + k + (chapterValues?.[k] ? ': ' + chapterValues[k] : ' — пусто')).join('\n')
+          ? chapterFields.map(k => k + (chapterValues?.[k] ? ': ' + chapterValues[k].slice(0, 80) : ': ?')).join('\n')
           : '—';
 
         const summary = genomeSummary && Object.keys(genomeSummary).length
-          ? Object.entries(genomeSummary).map(([k, v]) => k + ': ' + v).join('\n')
+          ? Object.entries(genomeSummary).map(([k, v]) => k + ': ' + (typeof v === 'string' ? v.slice(0, 100) : v)).join('\n')
           : '—';
 
-        const sysPrompt = `Ты — AI-консультант по заполнению «Генома личности v4». Твоя задача — помогать пользователю шаг за шагом заполнять анкету персонажа из 25 глав.
+        const sysPrompt = 'Ты — ассистент по заполнению анкеты персонажа. Помогаешь заполнять поля текущей главы. НЕЛЬЗЯ: здороваться, представляться, спрашивать имя пользователя, предлагать поболтать, давать оценки "хорошо/плохо". Отвечай по-русски, 2-3 предложения. Если просят сгенерировать — напиши готовый текст для поля.';
 
-КОНТЕКСТ:
-Пользователь сейчас на главе: ${chapterName || '—'}.
-Поля этой главы:
-${fieldsList}
-
-Уже заполненные данные персонажа:
-${summary}
-
-ИНСТРУКЦИЯ:
-1. Если пользователь описывает персонажа — переведи его идею в конкретные формулировки для полей этой главы.
-2. Если просит совет — предложи 2-3 варианта с кратким обоснованием, без оценки "хорошо/плохо".
-3. Если говорит "сгенерируй", "напиши", "предложи" — выдай готовый текст для копирования.
-4. Сначала задай 1 уточняющий вопрос, потом предлагай конкретику.
-5. Не перегружай — 2-4 предложения.
-
-ФОРМАТ ОТВЕТА:
-Кратко, по-русски. Если генерируешь текст для поля — оберни его в кавычки или отдельный абзац.`;
+        const contextBlock = '=== ТЕКУЩАЯ ГЛАВА ===\n'
+          + (chapterName || '?') + '\n\n=== ПОЛЯ ГЛАВЫ ===\n'
+          + fieldsList + '\n\n=== ЗАПОЛНЕНО ===\n'
+          + summary + '\n\n=== СООБЩЕНИЕ ===\n' + message;
 
         const key = env.OPENROUTER_API_KEY;
         if (!key) return json({ error: 'AI not configured' }, 503);
@@ -254,9 +241,10 @@ ${summary}
             model: 'deepseek/deepseek-chat',
             messages: [
               { role: 'system', content: sysPrompt },
-              { role: 'user', content: message },
+              { role: 'user', content: contextBlock },
             ],
-            max_tokens: 1500,
+            max_tokens: 1000,
+            temperature: 0.3,
           }),
         });
         const result = await res.json();
