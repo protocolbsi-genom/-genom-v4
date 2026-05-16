@@ -213,23 +213,35 @@ export default {
       if (path === '/api/consultant' && method === 'POST') {
         const user = await getUser(request, env);
         if (!user) return json({ error: 'Unauthorized' }, 401);
-        const { message, chapterName, chapterFields, chapterValues, genomeSummary } = await request.json();
+        const { message, chapterName, chapterFields, chapterValues, genomeSummary, tagFields } = await request.json();
         if (!message) return json({ error: 'Message required' }, 400);
 
-        const fieldsList = Array.isArray(chapterFields) && chapterFields.length
-          ? chapterFields.map(k => k + (chapterValues?.[k] ? ': ' + chapterValues[k].slice(0, 80) : ': ?')).join('\n')
-          : '—';
+        const filledLines = [];
+        (chapterFields || []).forEach(k => {
+          const v = chapterValues?.[k];
+          if (v) filledLines.push(k + ': ' + v);
+        });
+        const fieldsPart = filledLines.length ? filledLines.join('\n') : '(ничего не заполнено в этой главе)';
 
-        const summary = genomeSummary && Object.keys(genomeSummary).length
-          ? Object.entries(genomeSummary).map(([k, v]) => k + ': ' + (typeof v === 'string' ? v.slice(0, 100) : v)).join('\n')
-          : '—';
+        const summaryPairs = [];
+        if (genomeSummary) {
+          Object.entries(genomeSummary).filter(([k]) => !(chapterFields || []).includes(k)).forEach(([k, v]) => {
+            if (v) summaryPairs.push(k + ': ' + v);
+          });
+        }
+        if (tagFields) {
+          Object.entries(tagFields).forEach(([k, v]) => {
+            if (v) summaryPairs.push(k + ': ' + v);
+          });
+        }
+        const summaryPart = summaryPairs.length ? summaryPairs.slice(0, 30).join('\n') : '—';
 
-        const sysPrompt = 'Ты — ассистент по заполнению анкеты персонажа. Помогаешь заполнять поля текущей главы. НЕЛЬЗЯ: здороваться, представляться, спрашивать имя пользователя, предлагать поболтать, давать оценки "хорошо/плохо". Отвечай по-русски, 2-3 предложения. Если просят сгенерировать — напиши готовый текст для поля.';
+        const sysPrompt = 'Ты — ассистент по заполнению анкеты персонажа. Помогаешь заполнять поля текущей главы. НЕЛЬЗЯ: здороваться, представляться, спрашивать имя пользователя, предлагать поболтать, давать оценки "хорошо/плохо". Отвечай по-русски, 2-3 предложения. Когда пользователь просит сгенерировать текст для поля — пиши готовый текст в кавычках.';
 
         const contextBlock = '=== ТЕКУЩАЯ ГЛАВА ===\n'
-          + (chapterName || '?') + '\n\n=== ПОЛЯ ГЛАВЫ ===\n'
-          + fieldsList + '\n\n=== ЗАПОЛНЕНО ===\n'
-          + summary + '\n\n=== СООБЩЕНИЕ ===\n' + message;
+          + (chapterName || '?') + '\n\n=== ЧТО УЖЕ ЗАПОЛНЕНО В ЭТОЙ ГЛАВЕ ===\n'
+          + fieldsPart + '\n\n=== ОСТАЛЬНЫЕ ДАННЫЕ ПЕРСОНАЖА ===\n'
+          + summaryPart + '\n\n=== СООБЩЕНИЕ ПОЛЬЗОВАТЕЛЯ ===\n' + message;
 
         const key = env.OPENROUTER_API_KEY;
         if (!key) return json({ error: 'AI not configured' }, 503);

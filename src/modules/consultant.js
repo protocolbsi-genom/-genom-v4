@@ -60,10 +60,15 @@ export async function sendConsultant() {
   const chName = chIcon + ' ' + chLabel;
 
   const genomeSummary = {};
-  const importantKeys = ['name', 'self_def', 'contradiction', 'gender', 'age', 'profession', 'values', 'speech_samples'];
-  importantKeys.forEach(k => {
+  Object.keys(genome).forEach(k => {
+    if (k.startsWith('tag_')) return;
     const v = genome[k] || genome['tag_' + k];
     if (v) genomeSummary[k] = v;
+  });
+  const tagFields = {};
+  Object.keys(genome).filter(k => k.startsWith('tag_')).forEach(k => {
+    const v = genome[k];
+    if (v) tagFields[k.replace('tag_', '')] = v;
   });
 
   const token = localStorage.getItem('genom_v4_token');
@@ -79,6 +84,7 @@ export async function sendConsultant() {
         chapterFields: chKeys,
         chapterValues: chValues,
         genomeSummary,
+        tagFields,
         fullGenome: genome,
       }),
     });
