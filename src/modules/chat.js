@@ -11,6 +11,27 @@ export function copyPromptPreview() {
     const btn = document.querySelector('[onclick="copyPromptPreview()"]');
     if (btn) { btn.textContent = '✓'; setTimeout(() => btn.textContent = 'СКОПИРОВАТЬ', 2000); }
   });
+
+  collectData();
+  const snap = JSON.parse(JSON.stringify(getGenome()));
+  const name = snap.name || snap.nickname;
+  if (!name) return;
+
+  const list = JSON.parse(localStorage.getItem('genome_v4_personas') || '[]');
+  const item = { id: Date.now().toString(36), name, updatedAt: new Date().toISOString(), data: snap };
+  list.unshift(item);
+  localStorage.setItem('genome_v4_personas', JSON.stringify(list));
+
+  const token = localStorage.getItem('genom_v4_token');
+  if (token) {
+    fetch('/api/personas', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      body: JSON.stringify({ id: item.id, name: item.name, data: snap }),
+    }).catch(() => {});
+  }
+
+  if (window.renderPersonaLibrary) window.renderPersonaLibrary();
 }
 
 export function initPreviewChat(force = false) {
