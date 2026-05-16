@@ -1,4 +1,5 @@
 import { CHAPTERS, CHAPTER_KEYS } from '../data/chapters.js';
+import { LABELS, TAG_SPECS } from '../data/fieldLabels.js';
 import { getCurrentChapterIndex } from './ui.js';
 import { getGenome, collectData } from './genome.js';
 import { isLoggedIn } from './api.js';
@@ -69,7 +70,12 @@ export async function generateChapter() {
         description: msg,
         chapterIndex: chIdx,
         chapterName: chIcon + ' ' + chLabel,
-        chapterFields: chKeys,
+        chapterFields: chKeys.map(k => ({
+          key: k,
+          label: (LABELS[k] && LABELS[k].t) || k,
+          format: (LABELS[k] && LABELS[k].f) || 'текст',
+        })),
+        tagSpecs: TAG_SPECS,
         chapterValues: chValues,
         fullGenome: genome,
         previousDescription: prevDesc,

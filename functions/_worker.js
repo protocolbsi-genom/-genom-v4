@@ -217,27 +217,33 @@ export default {
         if (!description) return json({ error: 'Description required' }, 400);
 
         const filledLines = [];
-        (chapterFields || []).forEach(k => {
-          const v = chapterValues?.[k];
-          if (v) filledLines.push(k + ': «' + v + '»');
+        const specLines = [];
+        const chFieldKeys = (chapterFields || []).map(f => f.key || f);
+        (chapterFields || []).forEach(f => {
+          const k = f.key || f;
+          const label = f.label || k;
+          const fmt = f.format || 'текст';
+          let v = chapterValues?.[k];
+          specLines.push('  ' + label + ' [' + fmt + ']');
+          if (v) filledLines.push('  ' + label + ': «' + v + '»');
         });
 
         const knownData = [];
         if (fullGenome) {
-          Object.entries(fullGenome).filter(([k]) => !k.startsWith('tag_') && !(chapterFields || []).includes(k) && k !== 'orientation_val').forEach(([k, v]) => {
-            if (v) knownData.push(k + ': ' + (typeof v === 'string' && v.length > 120 ? v.slice(0, 120) + '...' : v));
+          Object.entries(fullGenome).filter(([k]) => !k.startsWith('tag_') && !chFieldKeys.includes(k) && k !== 'orientation_val').forEach(([k, v]) => {
+            if (v) knownData.push('  ' + k + ': ' + (typeof v === 'string' && v.length > 120 ? v.slice(0, 120) + '...' : v));
           });
           Object.entries(fullGenome).filter(([k]) => k.startsWith('tag_')).forEach(([k, v]) => {
-            if (v) knownData.push(k.replace('tag_', '') + ': ' + v);
+            if (v) knownData.push('  ' + k.replace('tag_', '') + ': ' + v);
           });
         }
 
-        const sysPrompt = 'Ты — генератор текста для полей персонажа. Пользователь описывает персонажа — ты заполняешь поля текущей главы. Верни ТОЛЬКО JSON, где ключи — названия полей, значения — сгенерированный текст. Никаких пояснений, никакого форматирования, только {"field1": "текст", "field2": "текст"}. Если поле должно содержать текст — напиши 1-3 предложения. Если поле короткое (имя, возраст, город) — одно слово или число.';
+        const sysPrompt = 'Ты — генератор текста для полей персонажа. Пользователь описывает персонажа — ты заполняешь поля текущей главы. Верни ТОЛЬКО JSON, где ключи — названия полей, значения — сгенерированный текст. Никаких пояснений, никакого форматирования, только {"field1": "текст", "field2": "текст"}. Соблюдай указанный формат для каждого поля.';
 
-        let context = 'Глава: ' + (chapterName || '?') + '\n\nПоля для заполнения:\n' + (chapterFields || []).join(', ') + '\n\n';
-        if (filledLines.length) context += 'Уже заполнено в этой главе:\n' + filledLines.join('\n') + '\n\n';
-        if (knownData.length) context += 'Другие данные персонажа:\n' + knownData.slice(0, 30).join('\n') + '\n\n';
-        if (previousDescription) context += 'Предыдущее описание пользователя: ' + previousDescription + '\n\n';
+        let context = 'Глава: ' + (chapterName || '?') + '\n\nПоля этой главы (что нужно заполнить):\n' + specLines.join('\n') + '\n\n';
+        if (filledLines.length) context += 'Уже заполнено в этой главе (не перезаписывать без явной просьбы):\n' + filledLines.join('\n') + '\n\n';
+        if (knownData.length) context += 'Другие данные персонажа (для согласованности):\n' + knownData.slice(0, 25).join('\n') + '\n\n';
+        if (previousDescription) context += 'Предыдущее описание этого персонажа: ' + previousDescription + '\n\n';
         context += 'Описание пользователя:\n' + description;
 
         const key = env.OPENROUTER_API_KEY;
