@@ -209,39 +209,36 @@ export default {
         return json({ reply: result.choices?.[0]?.message?.content || 'No response' });
       }
 
-      // POST /api/consultant — AI consultant for filling genome
-      if (path === '/api/consultant' && method === 'POST') {
+      // POST /api/generate — AI generates text for current chapter fields
+      if (path === '/api/generate' && method === 'POST') {
         const user = await getUser(request, env);
         if (!user) return json({ error: 'Unauthorized' }, 401);
-        const { message, chapterName, chapterFields, chapterValues, genomeSummary, tagFields } = await request.json();
-        if (!message) return json({ error: 'Message required' }, 400);
+        const { description, chapterName, chapterFields, chapterValues, fullGenome, previousDescription } = await request.json();
+        if (!description) return json({ error: 'Description required' }, 400);
 
         const filledLines = [];
         (chapterFields || []).forEach(k => {
           const v = chapterValues?.[k];
-          if (v) filledLines.push(k + ': ' + v);
+          if (v) filledLines.push(k + ': «' + v + '»');
         });
-        const fieldsPart = filledLines.length ? filledLines.join('\n') : '(ничего не заполнено в этой главе)';
 
-        const summaryPairs = [];
-        if (genomeSummary) {
-          Object.entries(genomeSummary).filter(([k]) => !(chapterFields || []).includes(k)).forEach(([k, v]) => {
-            if (v) summaryPairs.push(k + ': ' + v);
+        const knownData = [];
+        if (fullGenome) {
+          Object.entries(fullGenome).filter(([k]) => !k.startsWith('tag_') && !(chapterFields || []).includes(k) && k !== 'orientation_val').forEach(([k, v]) => {
+            if (v) knownData.push(k + ': ' + (typeof v === 'string' && v.length > 120 ? v.slice(0, 120) + '...' : v));
+          });
+          Object.entries(fullGenome).filter(([k]) => k.startsWith('tag_')).forEach(([k, v]) => {
+            if (v) knownData.push(k.replace('tag_', '') + ': ' + v);
           });
         }
-        if (tagFields) {
-          Object.entries(tagFields).forEach(([k, v]) => {
-            if (v) summaryPairs.push(k + ': ' + v);
-          });
-        }
-        const summaryPart = summaryPairs.length ? summaryPairs.slice(0, 30).join('\n') : '—';
 
-        const sysPrompt = 'Ты — ассистент по заполнению анкеты персонажа. Помогаешь заполнять поля текущей главы. НЕЛЬЗЯ: здороваться, представляться, спрашивать имя пользователя, предлагать поболтать, давать оценки "хорошо/плохо". Отвечай по-русски, 2-3 предложения. Когда пользователь просит сгенерировать текст для поля — пиши готовый текст в кавычках.';
+        const sysPrompt = 'Ты — генератор текста для полей персонажа. Пользователь описывает персонажа — ты заполняешь поля текущей главы. Верни ТОЛЬКО JSON, где ключи — названия полей, значения — сгенерированный текст. Никаких пояснений, никакого форматирования, только {"field1": "текст", "field2": "текст"}. Если поле должно содержать текст — напиши 1-3 предложения. Если поле короткое (имя, возраст, город) — одно слово или число.';
 
-        const contextBlock = '=== ТЕКУЩАЯ ГЛАВА ===\n'
-          + (chapterName || '?') + '\n\n=== ЧТО УЖЕ ЗАПОЛНЕНО В ЭТОЙ ГЛАВЕ ===\n'
-          + fieldsPart + '\n\n=== ОСТАЛЬНЫЕ ДАННЫЕ ПЕРСОНАЖА ===\n'
-          + summaryPart + '\n\n=== СООБЩЕНИЕ ПОЛЬЗОВАТЕЛЯ ===\n' + message;
+        let context = 'Глава: ' + (chapterName || '?') + '\n\nПоля для заполнения:\n' + (chapterFields || []).join(', ') + '\n\n';
+        if (filledLines.length) context += 'Уже заполнено в этой главе:\n' + filledLines.join('\n') + '\n\n';
+        if (knownData.length) context += 'Другие данные персонажа:\n' + knownData.slice(0, 30).join('\n') + '\n\n';
+        if (previousDescription) context += 'Предыдущее описание пользователя: ' + previousDescription + '\n\n';
+        context += 'Описание пользователя:\n' + description;
 
         const key = env.OPENROUTER_API_KEY;
         if (!key) return json({ error: 'AI not configured' }, 503);
@@ -253,14 +250,27 @@ export default {
             model: 'deepseek/deepseek-chat',
             messages: [
               { role: 'system', content: sysPrompt },
-              { role: 'user', content: contextBlock },
+              { role: 'user', content: context },
             ],
-            max_tokens: 1000,
-            temperature: 0.3,
+            max_tokens: 2000,
+            temperature: 0.4,
           }),
         });
         const result = await res.json();
-        return json({ reply: result.choices?.[0]?.message?.content || 'Нет ответа' });
+        const text = result.choices?.[0]?.message?.content || '';
+        try {
+          const parsed = JSON.parse(text);
+          return json({ fields: parsed });
+        } catch {
+          const match = text.match(/\{[\s\S]*\}/);
+          if (match) {
+            try {
+              const parsed = JSON.parse(match[0]);
+              return json({ fields: parsed });
+            } catch {}
+          }
+          return json({ fields: null, raw: text }, 200);
+        }
       }
 
       return json({ error: 'Not found' }, 404);
