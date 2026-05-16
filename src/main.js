@@ -29,6 +29,7 @@ window.copyPromptPreview = copyPromptPreview;
 window.sendChatMessage = sendChatMessage;
 window.resetChat = resetChat;
 window.scrollToFeatures = () => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
+window.tryDemoPersona = () => { fillAllFromAnna(); showPage('app'); };
 
 let authMode = 'login';
 

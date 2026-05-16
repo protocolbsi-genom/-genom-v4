@@ -24,19 +24,69 @@
 
 <!-- LANDING PAGE -->
 <div class="surface-page" id="page-landing">
+  <!-- HERO -->
   <div class="landing-hero">
     <div class="landing-bg"></div>
     <div class="landing-content">
       <div class="landing-badge">PERSONALITY GENOME v4</div>
-      <h1 class="landing-title">Создай<br><span class="glow">живую личность</span></h1>
-      <p class="landing-sub">25 слоёв генома → системный промпт для чата.<br>Не анкета — операционная система поведения.</p>
+      <h1 class="landing-title">Создай<br><span class="glow">живую цифровую личность</span></h1>
+      <p class="landing-sub">25 слоёв генома → готовый системный промпт для чата.<br>Не анкета — операционная система поведения.</p>
       <div class="landing-actions">
-        <button class="landing-btn primary" onclick="scrollToFeatures()">УЗНАТЬ БОЛЬШЕ</button>
-        <button class="landing-btn secondary" onclick="showLandingAuth()">НАЧАТЬ →</button>
+        <button class="landing-btn primary" onclick="showLandingAuth()">СОЗДАТЬ ЛИЧНОСТЬ →</button>
+        <button class="landing-btn secondary" onclick="scrollToFeatures()">УЗНАТЬ БОЛЬШЕ</button>
       </div>
     </div>
   </div>
 
+  <!-- SOCIAL PROOF -->
+  <div class="landing-metrics">
+    <div class="lm-item">
+      <div class="lm-num">✦</div>
+      <div class="lm-val">25</div>
+      <div class="lm-label">слоёв генома</div>
+    </div>
+    <div class="lm-item">
+      <div class="lm-num">◈</div>
+      <div class="lm-val">AI</div>
+      <div class="lm-label">умный анализ</div>
+    </div>
+    <div class="lm-item">
+      <div class="lm-num">⬡</div>
+      <div class="lm-val">Cloud</div>
+      <div class="lm-label">облачное хранение</div>
+    </div>
+    <div class="lm-item">
+      <div class="lm-num">∞</div>
+      <div class="lm-val">Free</div>
+      <div class="lm-label">бесплатно</div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="landing-steps" id="how-it-works">
+    <h2 class="landing-section-title">Как это работает</h2>
+    <div class="landing-steps-grid">
+      <div class="landing-step-card">
+        <div class="step-num">01</div>
+        <div class="step-title">Заполни 25 слоёв</div>
+        <div class="step-desc">Имя, ценности, голос, навыки — каждый аспект личности</div>
+      </div>
+      <div class="landing-step-arrow">→</div>
+      <div class="landing-step-card">
+        <div class="step-num">02</div>
+        <div class="step-title">AI проверит полноту</div>
+        <div class="step-desc">ИИ укажет пробелы и даст рекомендации</div>
+      </div>
+      <div class="landing-step-arrow">→</div>
+      <div class="landing-step-card">
+        <div class="step-num">03</div>
+        <div class="step-title">Получи промпт + чат</div>
+        <div class="step-desc">Готовый системный промпт и тестовый диалог с AI</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
   <div class="landing-features" id="features">
     <div class="landing-feature-card">
       <div class="lf-icon">✦</div>
@@ -60,10 +110,49 @@
     </div>
   </div>
 
+  <!-- DEMO / SHOWCASE -->
+  <div class="landing-demo">
+    <div class="landing-section-title">Попробуй прямо сейчас</div>
+    <div class="landing-demo-card">
+      <div class="demo-avatar">А</div>
+      <div class="demo-info">
+        <div class="demo-name">Анна Соколова</div>
+        <div class="demo-tags">UX-исследователь · 28 лет · Москва</div>
+        <div class="demo-quote">«Человек, который ищет смысл там, где другие видят только задачи»</div>
+        <div class="demo-arch">Архетип: Исследователь + Творец</div>
+      </div>
+      <div class="demo-action">
+        <button class="landing-btn primary" onclick="tryDemoPersona()">ПОПРОБОВАТЬ →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
   <div class="landing-cta">
-    <h2>Готов создать личность?</h2>
-    <p>Зарегистрируйся и получи доступ к полному геному</p>
+    <h2>Готов создать свою уникальную личность?</h2>
+    <p>Начни бесплатно — без карты и подписок</p>
     <button class="landing-btn primary" onclick="showLandingAuth()">СОЗДАТЬ АККАУНТ</button>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="landing-footer">
+    <div class="footer-col">
+      <div class="footer-logo">ГЕНОМ <span>v4</span></div>
+      <div class="footer-copy">Генератор цифровых личностей</div>
+      <div class="footer-copy" style="margin-top:4px;color:var(--tx3)">© 2026 Genom v4</div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-title">Продукт</div>
+      <button class="footer-link" onclick="showLandingAuth()">Геном</button>
+      <button class="footer-link" onclick="showLandingAuth()">Личности</button>
+      <button class="footer-link" onclick="showLandingAuth()">AI-чат</button>
+    </div>
+    <div class="footer-col">
+      <div class="footer-title">Ресурсы</div>
+      <a class="footer-link" href="https://github.com/protocolbsi-genom/-genom-v4" target="_blank">GitHub</a>
+      <a class="footer-link" href="https://raw.githubusercontent.com/protocolbsi-genom/-genom-v4/main/SPEC.md" target="_blank">Документация</a>
+      <button class="footer-link" onclick="showLandingAuth()">API</button>
+    </div>
   </div>
 </div>
 
