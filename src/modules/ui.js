@@ -86,6 +86,7 @@ export function goTo(idx) {
 }
 
 export function navSection(dir) { goTo(cur + dir); }
+export function getCurrentChapterIndex() { return cur; }
 
 export function showPreview() {
   const chs = document.querySelectorAll('.chapter');

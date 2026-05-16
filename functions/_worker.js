@@ -209,6 +209,60 @@ export default {
         return json({ reply: result.choices?.[0]?.message?.content || 'No response' });
       }
 
+      // POST /api/consultant — AI consultant for filling genome
+      if (path === '/api/consultant' && method === 'POST') {
+        const user = await getUser(request, env);
+        if (!user) return json({ error: 'Unauthorized' }, 401);
+        const { message, chapterName, chapterFields, chapterValues, genomeSummary } = await request.json();
+        if (!message) return json({ error: 'Message required' }, 400);
+
+        const fieldsList = Array.isArray(chapterFields) && chapterFields.length
+          ? chapterFields.map(k => '• ' + k + (chapterValues?.[k] ? ': ' + chapterValues[k] : ' — пусто')).join('\n')
+          : '—';
+
+        const summary = genomeSummary && Object.keys(genomeSummary).length
+          ? Object.entries(genomeSummary).map(([k, v]) => k + ': ' + v).join('\n')
+          : '—';
+
+        const sysPrompt = `Ты — AI-консультант по заполнению «Генома личности v4». Твоя задача — помогать пользователю шаг за шагом заполнять анкету персонажа из 25 глав.
+
+КОНТЕКСТ:
+Пользователь сейчас на главе: ${chapterName || '—'}.
+Поля этой главы:
+${fieldsList}
+
+Уже заполненные данные персонажа:
+${summary}
+
+ИНСТРУКЦИЯ:
+1. Если пользователь описывает персонажа — переведи его идею в конкретные формулировки для полей этой главы.
+2. Если просит совет — предложи 2-3 варианта с кратким обоснованием, без оценки "хорошо/плохо".
+3. Если говорит "сгенерируй", "напиши", "предложи" — выдай готовый текст для копирования.
+4. Сначала задай 1 уточняющий вопрос, потом предлагай конкретику.
+5. Не перегружай — 2-4 предложения.
+
+ФОРМАТ ОТВЕТА:
+Кратко, по-русски. Если генерируешь текст для поля — оберни его в кавычки или отдельный абзац.`;
+
+        const key = env.OPENROUTER_API_KEY;
+        if (!key) return json({ error: 'AI not configured' }, 503);
+
+        const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}`, 'HTTP-Referer': url.origin },
+          body: JSON.stringify({
+            model: 'deepseek/deepseek-chat',
+            messages: [
+              { role: 'system', content: sysPrompt },
+              { role: 'user', content: message },
+            ],
+            max_tokens: 1500,
+          }),
+        });
+        const result = await res.json();
+        return json({ reply: result.choices?.[0]?.message?.content || 'Нет ответа' });
+      }
+
       return json({ error: 'Not found' }, 404);
     } catch (e) {
       return json({ error: e.message }, 500);

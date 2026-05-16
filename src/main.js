@@ -5,6 +5,7 @@ import { saveCurrentPersona, loadPersona, deletePersona, renderPersonaLibrary, v
 import { analyzeText } from './modules/analysis.js';
 import { copyPromptPreview, sendChatMessage, initPreviewChat, resetChat } from './modules/chat.js?v=1';
 import { login, register, logout, isLoggedIn, getUser } from './modules/api.js';
+import { initConsultant, toggleConsultant, sendConsultant } from './modules/consultant.js';
 
 window.goTo = goTo;
 window.navSection = navSection;
@@ -30,6 +31,8 @@ window.sendChatMessage = sendChatMessage;
 window.resetChat = resetChat;
 window.scrollToFeatures = () => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
 window.tryDemoPersona = () => { fillAllFromAnna(); showPage('app'); };
+window.toggleConsultant = toggleConsultant;
+window.sendConsultant = sendConsultant;
 
 let authMode = 'login';
 
@@ -50,6 +53,7 @@ window.showLandingAuth = () => showPage('page-auth');
 
 window.showDashboard = async () => {
   if (!isLoggedIn()) { showPage('page-landing'); return; }
+  document.getElementById('cons-btn').style.display = 'block';
   const u = getUser();
   document.getElementById('sidebar-user').textContent = u.name || u.email;
 
@@ -114,6 +118,8 @@ window.handleAuth = async () => {
 
 window.handleLogout = () => {
   logout();
+  document.getElementById('cons-btn').style.display = 'none';
+  document.getElementById('cons-panel').classList.remove('open');
   document.getElementById('auth-pass').value = '';
   document.getElementById('auth-email').value = '';
   authMode = 'login';
@@ -186,5 +192,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (saved === 'light') document.documentElement.dataset.theme = 'light';
   updateThemeButton();
   initUI();
+  initConsultant();
   showPage('page-landing');
 });
