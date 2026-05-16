@@ -128,7 +128,7 @@ body{
 
 /* ── CHAPTER TABS ── */
 .chapters{
-  position:fixed;top:var(--nav-h);left:0;right:0;z-index:90;
+  position:fixed;top:0;left:0;right:0;z-index:90;
   background:var(--chapters-bg);
   backdrop-filter:blur(12px);
   border-bottom:1px solid var(--br);
@@ -511,7 +511,7 @@ input[type=range].blue::-webkit-slider-thumb{background:var(--acc3);box-shadow:0
 .surface-page{
   display:none;position:fixed;inset:0;z-index:180;
   background:var(--bg);overflow-y:auto;
-  padding:calc(var(--nav-h) + 18px) 12px 96px;
+  padding:18px 12px 96px;
 }
 .surface-page.open{display:block}
 .surface-inner{max-width:760px;margin:0 auto}
@@ -565,7 +565,7 @@ input[type=range].blue::-webkit-slider-thumb{background:var(--acc3);box-shadow:0
   min-height: 100vh;
   display: flex; align-items: center; justify-content: center;
   position: relative;
-  padding: calc(var(--nav-h) + 40px) 24px 60px;
+  padding: 40px 24px 60px;
   text-align: center;
 }
 .landing-bg {
@@ -1428,15 +1428,12 @@ input[type=range].blue::-webkit-slider-thumb{background:var(--acc3);box-shadow:0
   .main-scroll{padding:20px}
 }
 @media(max-width:460px){
-  .top-bar{padding:0 8px}
-  .top-btn{padding:6px 8px;font-size:10px}
-  .integrity-pill{display:none}
   .surface-title{font-size:26px}
 }
 @media(min-width:900px){
   .chapter{padding:0}
   .sticky-preview{
-    position:sticky;top:calc(var(--nav-h)+44px+16px);
+    position:sticky;top:60px;
     padding:16px;display:block!important;
   }
   .bottom-nav{max-width:580px;left:0;right:auto}

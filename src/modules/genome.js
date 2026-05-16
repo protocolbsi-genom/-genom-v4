@@ -25,9 +25,10 @@ export function collectData() {
 export function updateIntegrity() {
   const filled = keyFields.filter(k => genome[k] || genome['tag_' + k]).length;
   const pct = Math.round(filled / keyFields.length * 100);
-  document.getElementById('i-pct').textContent = pct + '%';
-  const dot = document.getElementById('i-dot');
-  dot.style.background = pct < 30 ? 'var(--br)' : pct < 70 ? 'var(--acc4)' : 'var(--acc)';
+  const iPct = document.getElementById('i-pct');
+  const iDot = document.getElementById('i-dot');
+  if (iPct) iPct.textContent = pct + '%';
+  if (iDot) iDot.style.background = pct < 30 ? 'var(--br)' : pct < 70 ? 'var(--acc4)' : 'var(--acc)';
   document.querySelectorAll('#chapters .ch-tab').forEach((tab, i) => {
     const ch = document.querySelector(`.chapter[data-id="${i}"]`);
     if (!ch) return;
